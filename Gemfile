@@ -43,3 +43,12 @@ group :development, :test do
   gem 'spring'
 end
 
+gem 'slim-rails'
+
+gem 'compass-rails'
+gem 'bootstrap-sass'
+gem 'font-awesome-rails'
+
+group :development, :test do
+  gem 'factory_girl_rails'
+end
