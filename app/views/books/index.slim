@@ -17,3 +17,36 @@ table
 br
 
 = link_to 'New Book', new_book_path
+
+= form_for books_path, method: :get do |f|
+  = f.text_field :q, name: :q, value: params[:q]
+  = f.submit 'Search'
+
+hr
+
+- if @res
+  .errors
+    = @res.error
+
+  - @res.items.each do |item|
+    - item_attributes = item.get_element('ItemAttributes')
+    dl
+      dt
+        | ASIN
+      dd
+        = item.get('ASIN')
+      dt
+        | Title
+      dd
+        = item_attributes.get('Title')
+        small<
+          = item_attributes.get('Binding')
+      dt
+        | Auhtor
+      dd
+        = item_attributes.get_array('Author').join(',')
+      dt
+        | Image
+      dd
+       - image_url = item.get('MediumImage/URL')
+       = image_tag image_url if image_url

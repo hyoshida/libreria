@@ -49,6 +49,9 @@ gem 'compass-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 
+gem 'amazon-ecs', '~> 2.3.0'
+
 group :development, :test do
   gem 'factory_girl_rails'
+  gem 'dotenv-rails'
 end

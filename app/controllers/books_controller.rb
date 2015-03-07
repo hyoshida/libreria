@@ -4,6 +4,13 @@ class BooksController < ApplicationController
   # GET /books
   def index
     @books = Book.all
+    begin
+      @res = Amazon::Ecs.item_search(params[:q], response_group: 'Medium', country: 'jp', search_index: 'Books', power: 'binding:not kindle') if params[:q]
+    rescue
+      retry_count ||= 0
+      retry_count += 1
+      retry if retry_count <= 5
+    end
   end
 
   # GET /books/1
