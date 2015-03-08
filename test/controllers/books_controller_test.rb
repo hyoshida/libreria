@@ -18,8 +18,10 @@ class BooksControllerTest < ActionController::TestCase
   end
 
   test "should create book" do
+    amazon_item = create(:amazon_item)
+
     assert_difference('Book.count') do
-      post :create, namespace_path: @namespace.path, book: attributes_for(:book)
+      post :create, namespace_path: @namespace.path, book: attributes_for(:book), asin: amazon_item.asin
     end
 
     assert_redirected_to namespace_book_path(assigns(:book), namespace_path: @namespace.path)
