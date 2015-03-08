@@ -1,4 +1,4 @@
-class OrganizationsController < InheritedResources::Base
+class OrganizationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
