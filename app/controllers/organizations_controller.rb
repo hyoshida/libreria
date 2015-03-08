@@ -23,6 +23,7 @@ class OrganizationsController < InheritedResources::Base
   # POST /organizations
   def create
     @organization = Organization.new(organization_params)
+    @organization.members_attributes = [ user_id: current_user.id, role: :owner ]
 
     if @organization.save
       redirect_to @organization, notice: 'Organization was successfully created.'

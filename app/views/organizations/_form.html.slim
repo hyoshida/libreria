@@ -6,4 +6,12 @@
         - @organization.errors.full_messages.each do |message|
           li = message
 
+  .form-group
+    = f.label :name
+    = f.text_field :name
+
+  .form-group
+    = f.check_box :published
+    = f.label :published
+
   .actions = f.submit
