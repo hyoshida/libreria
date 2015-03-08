@@ -69,9 +69,26 @@ class BooksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def book_params
-    params.require(:book).permit(
-      :location_name,
-      amazon_item_attributes: [:asin, :item]
+    book_params = params.require(:book).permit(
+      :location_name
     )
+    permit_amazon_item_attributes!(book_params)
+  end
+
+  def permit_amazon_item_attributes!(book_params)
+    original_book_params = params[:book]
+    return book_params unless original_book_params
+
+    amazon_item_params = original_book_params[:amazon_item_attributes]
+    return book_params unless amazon_item_params
+
+    asin = amazon_item_params[:asin]
+    item = amazon_item_params[:item]
+
+    book_params[:amazon_item_attributes] ||= {}
+    book_params[:amazon_item_attributes][:asin] = asin if asin
+    book_params[:amazon_item_attributes][:item] = item if item
+    book_params[:amazon_item_attributes].permit!
+    book_params
   end
 end

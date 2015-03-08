@@ -14,6 +14,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations/new
   def new
     @organization = Organization.new
+    @organization.build_namespace
   end
 
   # GET /organizations/1/edit

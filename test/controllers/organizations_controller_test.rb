@@ -2,7 +2,8 @@ require 'test_helper'
 
 class OrganizationsControllerTest < ActionController::TestCase
   setup do
-    @organization = create(:organizations)
+    @organization = create(:organization)
+    sign_in_user
   end
 
   test "should get index" do
@@ -18,7 +19,7 @@ class OrganizationsControllerTest < ActionController::TestCase
 
   test "should create organization" do
     assert_difference('Organization.count') do
-      post :create, organization: {  }
+      post :create, organization: attributes_for(:organization)
     end
 
     assert_redirected_to organization_path(assigns(:organization))
@@ -35,7 +36,8 @@ class OrganizationsControllerTest < ActionController::TestCase
   end
 
   test "should update organization" do
-    patch :update, id: @organization, organization: {  }
+    new_name = "New #{@organization.name}"
+    patch :update, id: @organization, organization: { name: new_name }
     assert_redirected_to organization_path(assigns(:organization))
   end
 
