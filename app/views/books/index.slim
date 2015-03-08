@@ -34,7 +34,7 @@ hr
       dt
         | ASIN
       dd
-        = item.get('ASIN')
+        = link_to item.get('ASIN'), item.get('DetailPageURL')
       dt
         | Title
       dd
@@ -50,3 +50,8 @@ hr
       dd
        - image_url = item.get('MediumImage/URL')
        = image_tag image_url if image_url
+
+    = form_for Book.new do |f|
+      = f.hidden_field :asin, value: item.get('ASIN')
+      = f.hidden_field :item, value: item.to_json
+      = f.submit
