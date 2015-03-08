@@ -55,6 +55,7 @@ gem 'devise', '~> 3.4.1'
 gem 'activeadmin', github: 'activeadmin'
 
 gem 'enumerize', '~> 0.10.1'
+gem 'state_machines-activerecord', '~> 0.2.0'
 
 group :development, :test do
   gem 'factory_girl_rails'

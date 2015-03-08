@@ -52,6 +52,7 @@ hr
        = image_tag image_url if image_url
 
     = form_for Book.new do |f|
-      = f.hidden_field :asin, value: item.get('ASIN')
-      = f.hidden_field :item, value: item.to_json
+      = f.fields_for :amazon_item, f.object.build_amazon_item do |ff|
+        = ff.hidden_field :asin, value: item.get('ASIN')
+        = ff.hidden_field :item, value: item.to_json
       = f.submit
