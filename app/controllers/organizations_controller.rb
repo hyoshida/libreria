@@ -57,7 +57,8 @@ class OrganizationsController < ApplicationController
   def organization_params
     params.require(:organization).permit(
       :name,
-      :published
+      :published,
+      namespace_attributes: [:path]
     )
   end
 end

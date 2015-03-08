@@ -10,5 +10,5 @@ class Member < ActiveRecord::Base
   enumerize :role, in: %i(
     none
     owner
-  ), default: :none, predicates: true
+  ), default: :none, predicates: true, scope: true
 end

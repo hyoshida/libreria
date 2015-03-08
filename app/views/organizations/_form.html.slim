@@ -14,4 +14,8 @@
     = f.check_box :published
     = f.label :published
 
+  = f.fields_for :namespace, f.object.build_namespace do |ff|
+    = ff.label :path
+    = ff.text_field :path
+
   .actions = f.submit

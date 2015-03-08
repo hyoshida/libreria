@@ -1,0 +1,9 @@
+= form_for @namespace do |f|
+  - if @namespace.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@namespace.errors.count, "error")} prohibited this namespace from being saved:"
+      ul
+        - @namespace.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit

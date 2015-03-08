@@ -1,0 +1,19 @@
+h1 Listing namespaces
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @namespaces.each do |namespace|
+      tr
+        td = link_to 'Show', namespace
+        td = link_to 'Edit', edit_namespace_path(namespace)
+        td = link_to 'Destroy', namespace, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Namespace', new_namespace_path
