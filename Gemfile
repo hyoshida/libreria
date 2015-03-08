@@ -51,6 +51,8 @@ gem 'font-awesome-rails'
 
 gem 'amazon-ecs', '~> 2.3.0'
 
+gem 'activeadmin', github: 'activeadmin'
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'dotenv-rails'
