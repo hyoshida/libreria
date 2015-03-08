@@ -55,6 +55,8 @@ gem 'devise', '~> 3.4.1'
 gem 'cancancan', '~> 1.10.1'
 gem 'activeadmin', github: 'activeadmin'
 
+gem 'enumerize', '~> 0.10.1'
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'dotenv-rails'
