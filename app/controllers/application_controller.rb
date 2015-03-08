@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_admin_user!
     return authenticate_admin_user! unless current_user
-    # return if current_user.admin?
-    # redirect_to new_user_session_path, alert: I18n.t('devise.failure.unauthenticated')
+    return if current_user.admin?
+    redirect_to root_path, alert: I18n.t('devise.failure.unauthenticated')
   end
 end

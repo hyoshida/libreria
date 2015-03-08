@@ -1,6 +1,8 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
+      t.string :role, null: false
+
       ## Database authenticatable
       t.string :email, null: false, index: { unique: true }
       t.string :encrypted_password, null: false
