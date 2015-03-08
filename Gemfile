@@ -52,6 +52,7 @@ gem 'font-awesome-rails'
 gem 'amazon-ecs', '~> 2.3.0'
 
 gem 'devise', '~> 3.4.1'
+gem 'cancancan', '~> 1.10.1'
 gem 'activeadmin', github: 'activeadmin'
 
 group :development, :test do
