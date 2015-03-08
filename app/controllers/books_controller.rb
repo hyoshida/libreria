@@ -1,7 +1,9 @@
 class BooksController < ApplicationController
   include BooksHelper
 
+  before_action :authenticate_user!
   before_action :set_namespace
+  before_action :authenticate_user_for_namespace!
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   # GET /:namespace_path/books
@@ -73,5 +75,11 @@ class BooksController < ApplicationController
     params.fetch(:book, {}).permit(
       :location_name
     )
+  end
+
+  def authenticate_user_for_namespace!
+   return if action_name.in?(['index', 'show']) && @namespace.ownerable.is_a?(Organization) && @namespace.ownerable.published
+   return if @namespace.owners.include? current_user
+   redirect_to root_path, alert: 'Access is not allowed'
   end
 end

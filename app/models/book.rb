@@ -7,6 +7,8 @@ class Book < ActiveRecord::Base
 
   delegate :asin, to: :amazon_item
   delegate :item, to: :amazon_item
+  delegate :owners, to: :namespace
+  delegate :owner, to: :namespace
 
   state_machine initial: :requested do
     state :requested
@@ -59,18 +61,6 @@ class Book < ActiveRecord::Base
     def amazon_api_default_options
       { response_group: 'Medium', country: 'jp', power: 'binding:not kindle' }
     end
-  end
-
-  def owners
-    if namespace.ownerable.is_a? Organization
-      namespace.ownerable.owners.to_a
-    else
-      [namespace.ownerable]
-    end
-  end
-
-  def owner
-    owners.first
   end
 
   def associate_amazon_item_by(asin)
