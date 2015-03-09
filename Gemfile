@@ -48,6 +48,7 @@ gem 'slim-rails'
 gem 'compass-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
+gem 'select2-rails', '~> 3.5.9'
 
 gem 'amazon-ecs', '~> 2.3.0'
 
