@@ -58,8 +58,10 @@ gem 'enumerize', '~> 0.10.1'
 gem 'state_machines-activerecord', '~> 0.2.0'
 
 group :development, :test do
-  gem 'factory_girl_rails'
   gem 'dotenv-rails'
+
+  gem 'shoulda'
+  gem 'factory_girl_rails'
 
   # Dress up minitest output
   gem 'minitest-reporters'
