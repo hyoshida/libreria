@@ -62,7 +62,11 @@ class BooksController < ApplicationController
   private
 
   def set_namespace
-    @namespace = Namespace.find_by!(path: params[:namespace_path])
+    if params[:namespace_path]
+      @namespace = Namespace.find_by!(path: params[:namespace_path])
+    else
+      @namespace = current_user.namespace
+    end
   end
 
   # Use callbacks to share common setup or constraints between actions.
