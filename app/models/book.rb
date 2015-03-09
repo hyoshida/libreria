@@ -2,8 +2,11 @@ class Book < ActiveRecord::Base
   belongs_to :namespace
   belongs_to :amazon_item
 
+  validates :amazon_item_id, uniqueness: { scope: :namespace_id }
   validates :namespace, presence: true
   validates :amazon_item, presence: true
+  validates :state, length: { maximum: 255 }
+  validates :location_name, length: { maximum: 255 }
 
   delegate :asin, to: :amazon_item
   delegate :item, to: :amazon_item

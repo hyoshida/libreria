@@ -7,6 +7,9 @@ Minitest::Reporters.use!
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
+end
+
+class ActionController::TestCase
   include Devise::TestHelpers
 
   def sign_in_user

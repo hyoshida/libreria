@@ -7,7 +7,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :namespace
   accepts_nested_attributes_for :members
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 255 }
   validates :published, presence: true
   validates :namespace, presence: true
   validates :members, presence: true
