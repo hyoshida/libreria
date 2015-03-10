@@ -14,8 +14,9 @@
     = f.check_box :published
     = f.label :published
 
-  = f.fields_for :namespace do |ff|
-    = ff.label :path
-    = ff.text_field :path
+  .form-group
+    = f.fields_for :namespace do |ff|
+      = ff.label :path
+      = ff.text_field :path
 
   .actions = f.submit

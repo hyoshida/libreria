@@ -1,6 +1,7 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_organization_owner!, only: [:edit, :update, :destroy]
 
   # GET /organizations
   def index
@@ -24,7 +25,7 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   def create
     @organization = Organization.new(organization_params)
-    @organization.members_attributes = [ user_id: current_user.id, role: :owner ]
+    @organization.members_attributes = [ user: current_user, role: :owner, activated: true ]
 
     if @organization.save
       redirect_to @organization, notice: 'Organization was successfully created.'
@@ -61,5 +62,10 @@ class OrganizationsController < ApplicationController
       :published,
       namespace_attributes: [:path]
     )
+  end
+
+  def ensure_organization_owner!
+    return if @organization.owners.include? current_user
+    redirect_to root_path, alert: 'Access denied.'
   end
 end

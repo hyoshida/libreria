@@ -1,0 +1,17 @@
+= form_for [@organization, @member] do |f|
+  - if @member.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@member.errors.count, "error")} prohibited this member from being saved:"
+      ul
+        - @member.errors.full_messages.each do |message|
+          li = message
+
+  .form-group
+    = f.label :user_id
+    = f.hidden_field :user_id, class: 'search-user form-control', data: { source: users_path }
+
+  .form-group
+    = f.label :role
+    = f.select :role, f.object.class.role.options
+
+  .actions = f.submit

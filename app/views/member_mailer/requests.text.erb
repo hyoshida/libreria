@@ -1,0 +1,5 @@
+@<%= @member.name %> requests to join your organization!
+
+Please click the URL below when you accept this request.
+
+<%= accept_organization_members_url(@organization, request_token: @member.request_token) %>

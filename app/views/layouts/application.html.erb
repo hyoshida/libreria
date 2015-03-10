@@ -10,6 +10,7 @@
 <div>
   <p><%= flash[:alert] %></p>
   <p><%= flash[:notice] %></p>
+  <p><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></p>
 </div>
 
 <%= yield %>
