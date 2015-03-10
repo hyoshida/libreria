@@ -9,7 +9,18 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :members
 
   validates :name, presence: true, length: { maximum: 255 }
+  validates :email, presence: true, length: { maximum: 255 }, format: { with: Devise.email_regexp }
   validates :published, presence: true
   validates :namespace, presence: true
   validates :members, presence: true
+
+  before_validation :copy_email_from_owner, on: :create
+
+  private
+
+  def copy_email_from_owner
+    owner = members.first
+    return unless owner
+    self.email = owner.email
+  end
 end
