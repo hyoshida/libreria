@@ -14,14 +14,9 @@
     = f.check_box :published
     = f.label :published
 
-  - if @organization.new_record?
+  .form-group
     = f.fields_for :namespace do |ff|
       = ff.label :path
       = ff.text_field :path
-
-  - if @organization.persisted?
-    = f.fields_for :members, Member.new do |ff|
-      = ff.hidden_field :user_id, class: 'search-user form-control', data: { source: users_path }
-      = ff.select :role, ff.object.class.role.options
 
   .actions = f.submit

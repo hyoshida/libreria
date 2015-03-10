@@ -25,7 +25,7 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   def create
     @organization = Organization.new(organization_params)
-    @organization.members_attributes = [ user_id: current_user.id, role: :owner ]
+    @organization.members_attributes = [ user: current_user, role: :owner ]
 
     if @organization.save
       redirect_to @organization, notice: 'Organization was successfully created.'
@@ -60,8 +60,7 @@ class OrganizationsController < ApplicationController
     params.require(:organization).permit(
       :name,
       :published,
-      { namespace_attributes: [:path] },
-      { members_attributes: [:user_id] },
+      namespace_attributes: [:path]
     )
   end
 

@@ -1,5 +1,6 @@
 class Member < ActiveRecord::Base
   extend Enumerize
+  include Member::Requestable
 
   belongs_to :organization
   belongs_to :user
@@ -14,4 +15,5 @@ class Member < ActiveRecord::Base
   ), default: :none, predicates: true, scope: true
 
   delegate :email, to: :user
+  delegate :name, to: :user
 end

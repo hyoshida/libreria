@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
     admin
   ), default: :none, predicates: true
 
+  def name
+    namespace.path
+  end
+
   def as_json(options)
     { id: id, text: email }
   end

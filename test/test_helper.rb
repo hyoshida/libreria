@@ -12,8 +12,8 @@ end
 class ActionController::TestCase
   include Devise::TestHelpers
 
-  def sign_in_user
+  def sign_in_user(user = nil)
     @request.env['devise.mapping'] = Devise.mappings[:user]
-    sign_in User.first || create(:user)
+    sign_in user || create(:user)
   end
 end

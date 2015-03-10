@@ -4,7 +4,7 @@ class BooksControllerTest < ActionController::TestCase
   setup do
     @namespace = create(:namespace, :with_organization)
     @book = create(:book, namespace: @namespace)
-    sign_in_user
+    sign_in_user @namespace.owner
   end
 
   test "should get index" do
