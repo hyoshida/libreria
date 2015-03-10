@@ -1,7 +1,8 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_organization
-  #before_action :authenticate_user_for_organization!, except: [:request, :request_complete]
+  before_action :ensure_organization_owner!, except: [:requests, :requests_complete]
+  before_action :ensure_published!, only: [:request, :request_complete]
 
   # GET /organizations/:organization_id/members
   def index
@@ -92,5 +93,15 @@ class MembersController < ApplicationController
     params.require(:organization).permit(
       members_attributes: [:id, :user_id, :role]
     )
+  end
+
+  def ensure_organization_owner!
+    return if @organization.owners.include? current_user
+    redirect_to root_path, alert: 'Access denied.'
+  end
+
+  def ensure_published!
+    return if @organization.published?
+    redirect_to root_path, alert: 'Organization is unpublished.'
   end
 end

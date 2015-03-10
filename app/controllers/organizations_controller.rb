@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user_for_organization!, only: [:edit, :update, :destroy]
+  before_action :ensure_organization_owner!, only: [:edit, :update, :destroy]
 
   # GET /organizations
   def index
@@ -64,8 +64,8 @@ class OrganizationsController < ApplicationController
     )
   end
 
-  def authenticate_user_for_organization!
-   return if @organization.owners.include? current_user
-   redirect_to root_path, alert: 'Access is not allowed'
+  def ensure_organization_owner!
+    return if @organization.owners.include? current_user
+    redirect_to root_path, alert: 'Access denied.'
   end
 end
