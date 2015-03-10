@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         patch '/', action: :update
         get '/request', action: :requests
         post '/request', action: :requests_complete
+        get '/accept', action: :accept
       end
     end
   end

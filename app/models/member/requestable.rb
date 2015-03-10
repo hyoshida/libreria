@@ -3,6 +3,8 @@ class Member < ActiveRecord::Base
     extend ActiveSupport::Concern
 
     included do
+      belongs_to :request_acceptor, class_name: User.name
+
       validates :request_token, uniqueness: { allow_nil: true }
     end
 

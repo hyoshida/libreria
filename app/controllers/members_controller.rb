@@ -60,6 +60,21 @@ class MembersController < ApplicationController
     end
   end
 
+  # GET /organizations/:organization_id/members/accept?request_token=:request_token
+  def accept
+    member = @organization.members.inactivated.find_by!(request_token: params[:request_token])
+    member.activated = true
+    member.request_accepted_at = Time.now
+    member.request_acceptor = current_user
+
+    if member.save
+      MemberMailer.accept(@organization, member).deliver_now
+      redirect_to organization_members_url(@organization), notice: 'Request accepted.'
+    else
+      redirect_to organization_members_url(@organization), alert: 'Request token is broken.'
+    end
+  end
+
   private
 
   def set_organization
