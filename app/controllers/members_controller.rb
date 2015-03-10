@@ -16,6 +16,7 @@ class MembersController < ApplicationController
   # POST /organizations/:organization_id/members
   def create
     @member = @organization.members.build(member_params)
+    @member.activated = true
 
     if @member.save
       redirect_to organization_members_url(@organization), notice: 'Member was successfully created.'
@@ -42,13 +43,14 @@ class MembersController < ApplicationController
 
   # GET /organizations/:organization_id/members/request
   def requests
-    @member = @organization.members.build(user: current_user)
+    @member = @organization.members.inactivated.build(user: current_user)
   end
 
   # POST /organizations/:organization_id/members/request
   def requests_complete
-    @member = @organization.members.build(user: current_user)
+    @member = @organization.members.inactivated.build(user: current_user)
     @member.generate_request_token
+    @member.request_sent_at = Time.now
 
     if @member.save
       MemberMailer.requests(@organization, @member).deliver_now

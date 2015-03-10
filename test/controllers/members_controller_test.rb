@@ -3,7 +3,7 @@ require 'test_helper'
 class MembersControllerTest < ActionController::TestCase
   setup do
     @user = create(:user)
-    @organization = create(:organization, members_attributes: [user: @user, role: :owner])
+    @organization = create(:organization, members_attributes: [user: @user, role: :owner, activated: true])
     sign_in_user
   end
 
@@ -12,8 +12,8 @@ class MembersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should create member' do
-    assert_difference 'Member.count', +1 do
+  test 'should create inactivated member' do
+    assert_difference 'Member.inactivated.count', +1 do
       post :requests_complete, organization_id: @organization.id
     end
 

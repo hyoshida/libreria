@@ -9,6 +9,11 @@ class Member < ActiveRecord::Base
   validates :user, presence: true
   validates :role, presence: true, length: { maximum: 255 }
 
+  scope :activated, -> { unscope(where: :activated).where(activated: true) }
+  scope :inactivated, -> { unscope(where: :activated).where(activated: false) }
+
+  default_scope { activated }
+
   enumerize :role, in: %i(
     none
     owner

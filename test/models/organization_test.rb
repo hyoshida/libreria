@@ -17,7 +17,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
   test 'create with email of owner' do
     user = build(:user)
-    organization = build(:organization, members_attributes: [user: user, role: :owner])
+    organization = build(:organization, members_attributes: [user: user, role: :owner, activated: true])
     organization.save!
     assert organization.email == user.email
   end

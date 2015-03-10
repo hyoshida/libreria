@@ -4,6 +4,7 @@ class CreateMembers < ActiveRecord::Migration
       t.references :organization, null: false
       t.references :user, null: false
       t.string :role, null: false
+      t.boolean :activated, null: false, default: true
 
       t.string :request_token, index: { unique: true }
       t.datetime :request_sent_at

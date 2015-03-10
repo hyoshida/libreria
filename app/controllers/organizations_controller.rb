@@ -25,7 +25,7 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   def create
     @organization = Organization.new(organization_params)
-    @organization.members_attributes = [ user: current_user, role: :owner ]
+    @organization.members_attributes = [ user: current_user, role: :owner, activated: true ]
 
     if @organization.save
       redirect_to @organization, notice: 'Organization was successfully created.'
