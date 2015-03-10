@@ -59,7 +59,8 @@ class OrganizationsController < ApplicationController
     params.require(:organization).permit(
       :name,
       :published,
-      namespace_attributes: [:path]
+      { namespace_attributes: [:path] },
+      { members_attributes: [:user_id] },
     )
   end
 end

@@ -16,4 +16,8 @@ class User < ActiveRecord::Base
     none
     admin
   ), default: :none, predicates: true
+
+  def as_json(options)
+    { id: id, text: email }
+  end
 end

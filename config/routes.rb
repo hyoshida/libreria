@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :organizations
+  resources :users, only: :index
 
   resources :namespaces, path: '/', param: :path, constraints: { path: /[-_.a-zA-Z0-9]+/ }, only: :show do
     resources :books

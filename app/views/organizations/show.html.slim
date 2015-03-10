@@ -1,5 +1,12 @@
 p#notice = notice
 
+ul
+  - @organization.members.each do |member|
+    li
+      = member.email
+      - if member.owner?
+        small<
+          = member.role.text
 
 = link_to 'Edit', edit_organization_path(@organization)
 '|

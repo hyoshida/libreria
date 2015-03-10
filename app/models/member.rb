@@ -12,4 +12,6 @@ class Member < ActiveRecord::Base
     none
     owner
   ), default: :none, predicates: true, scope: true
+
+  delegate :email, to: :user
 end
