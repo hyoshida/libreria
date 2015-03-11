@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: books
+#
+#  id             :integer          not null, primary key
+#  amazon_item_id :integer          not null
+#  namespace_id   :integer          not null
+#  state          :string           not null
+#  location_name  :string
+#  arrived_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+# Indexes
+#
+#  index_books_on_amazon_item_id_and_namespace_id  (amazon_item_id,namespace_id) UNIQUE
+#
+
 class Book < ActiveRecord::Base
   belongs_to :namespace
   belongs_to :amazon_item
