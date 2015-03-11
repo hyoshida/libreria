@@ -4,5 +4,7 @@ h1 Editing book
 
 = link_to 'Show', @book
 '|
+= link_to 'Destroy', @book, data: { confirm: 'Are you sure?' }, method: :delete
+'|
 = link_to 'Back', books_path
 

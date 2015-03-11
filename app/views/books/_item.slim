@@ -1,0 +1,27 @@
+.col-sm-3
+  = link_to book do
+    = image_tag book.medium_image_url, class: 'thumbnail center-block'
+  .caption
+    h4
+      = book.title
+      small<
+        = book.binding
+    p
+      = book.authors.join(',')
+    p
+      - if book.new_record?
+        = form_for book do |f|
+          = f.hidden_field :asin, name: :asin, value: book.asin
+
+          .form-group
+            = f.label :location_name
+            = f.text_field :location_name
+
+          .form-group.text-center
+            = f.submit 'Add to bookshelf', class: 'btn btn-primary'
+      - else
+        .text-center
+          span>
+            = link_to 'Show', book, class: 'btn btn-primary'
+          span>
+            = link_to 'Edit', edit_book_path(book), class: 'btn btn-default'

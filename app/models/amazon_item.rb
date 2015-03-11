@@ -16,4 +16,34 @@
 class AmazonItem < ActiveRecord::Base
   validates :asin, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :item, presence: true
+
+  def detail_page_url
+    item['DetailPageURL']
+  end
+
+  def medium_image_url
+    medium_image['URL']
+  end
+
+  def title
+    item_attributes['Title']
+  end
+
+  def authors
+    item_attributes['Authors'] | []
+  end
+
+  def binding
+    item_attributes['Binding']
+  end
+
+  private
+
+  def item_attributes
+    item['ItemAttributes'] || {}
+  end
+
+  def medium_image
+    item['MediumImage'] || {}
+  end
 end

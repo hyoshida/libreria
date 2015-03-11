@@ -1,26 +1,12 @@
-h1 Listing books
-
-table
-  thead
-    tr
-      th
-      th
-      th
-
-  tbody
-    - @books.each do |book|
-      tr
-        td = link_to 'Show', book
-        td = link_to 'Edit', edit_book_path(book)
-        td = link_to 'Destroy', book, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
-
-= link_to 'New Book', new_book_path
+.page-header
+  h1
+    | Listing books
 
 = form_for books_path, method: :get do |f|
-  = f.text_field :q, name: :q, value: params[:q]
-  = f.submit 'Search'
+  .input-group
+    = f.text_field :q, name: :q, value: params[:q], class: 'form-control'
+    .input-group-btn
+      = f.submit 'Search', class: 'btn btn-default'
 
 hr
 
@@ -28,32 +14,14 @@ hr
   .errors
     = @res.error
 
-  - @res.items.each do |item|
-    - item_attributes = item.get_element('ItemAttributes')
-    dl
-      dt
-        | ASIN
-      dd
-        = link_to item.get('ASIN'), item.get('DetailPageURL')
-      dt
-        | Title
-      dd
-        = item_attributes.get('Title')
-        small<
-          = item_attributes.get('Binding')
-      dt
-        | Auhtor
-      dd
-        = item_attributes.get_array('Author').join(',')
-      dt
-        | Image
-      dd
-       - image_url = item.get('MediumImage/URL')
-       = image_tag image_url if image_url
+  .row
+    - @res.items.each do |item|
+      - amazon_item = AmazonItem.new(asin: item.get('ASIN'), item: item.to_json)
+      - book = Book.new(amazon_item: amazon_item)
+      = render 'item', book: book
+- else
+  .row
+    - @books.each do |book|
+      = render 'item', book: book
 
-    = form_for Book.new do |f|
-      = f.label :location_name
-      = f.text_field :location_name
-
-      = f.hidden_field :asin, name: :asin, value: item.get('ASIN')
-      = f.submit
+  = link_to 'New Book', new_book_path

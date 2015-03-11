@@ -26,8 +26,16 @@ class Book < ActiveRecord::Base
   validates :state, length: { maximum: 255 }
   validates :location_name, length: { maximum: 255 }
 
-  delegate :asin, to: :amazon_item
-  delegate :item, to: :amazon_item
+  delegate *%i(
+    asin
+    item
+    detail_page_url
+    medium_image_url
+    title
+    authors
+    binding
+  ), to: :amazon_item
+
   delegate :owners, to: :namespace
   delegate :owner, to: :namespace
 

@@ -17,3 +17,7 @@
 //= require select2
 //= require select2_locale_ja
 //= require_tree .
+
+jQuery(function() {
+  $('[data-toggle="tooltip"]').tooltip()
+})
