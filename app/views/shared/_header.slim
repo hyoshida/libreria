@@ -1,0 +1,30 @@
+header.navbar.navbar-default
+  .container
+    .navbar-header
+      = link_to root_path, class: 'navbar-brand' do
+        | Libreria
+
+      button.navbar-toggle type="button"
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
+    ul.nav.navbar-nav.navbar-right
+      li.dropdown.navbar-user
+        a href="#" class="dropdown-toggle" data-toggle="dropdown"
+          span.hidden-xs
+            - if user_signed_in?
+              = current_user.email
+            - else
+              | Guest
+          span.caret<
+        ul.dropdown-menu.animated.fadeInLeft
+          li
+            - if user_signed_in?
+              = link_to destroy_user_session_path, method: :delete do
+                span.fa.fa-sign-out>
+                = 'Sign out'
+            - else
+              = link_to new_user_session_path do
+                span.fa.fa-sign-in>
+                = 'Sign in'
