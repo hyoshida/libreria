@@ -61,6 +61,9 @@ gem 'state_machines-activerecord', '~> 0.2.0'
 group :development do
   # Add a comment summarizing the current schema to each files
   gem 'annotate', '~> 2.6.7'
+
+  # Awesome console for Rails
+  gem 'pry-rails'
 end
 
 group :development, :test do

@@ -15,3 +15,7 @@
 /vendor/bundle
 /db/schema.rb
 /.env
+
+# Ignore pry config.
+/.pryrc
+/.pry_history
