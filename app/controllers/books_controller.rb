@@ -131,12 +131,16 @@ class BooksController < ApplicationController
 
   def ensure_namespace_owner!
    return if namespace_owner?
-   redirect_to root_path, alert: 'Access denied.'
+   redirect_to_access_denied
   end
 
   def ensure_organization_member!
    return unless @namespace.ownerable.is_a?(Organization)
    return if @namespace.ownerable.published?
-   redirect_to root_path, alert: 'Access denied.'
+   redirect_to_access_denied
+  end
+
+  def redirect_to_access_denied
+   redirect_to (@book ? @book : books_path), alert: 'Access denied.'
   end
 end
