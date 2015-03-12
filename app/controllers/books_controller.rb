@@ -1,12 +1,13 @@
 class BooksController < ApplicationController
   include BooksHelper
 
+  helper_method :namespace_owner?
+
   before_action :authenticate_user!
   before_action :set_namespace
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :ensure_namespace_owner!, except: [:index, :show, :create]
   before_action :ensure_organization_member!, only: [:index, :show, :create]
-  before_action :ensure_non_owner_allow_to_only_wish!, only: :create
 
   # GET /:namespace_path/books
   def index
@@ -35,12 +36,13 @@ class BooksController < ApplicationController
 
   # POST /:namespace_path/books
   def create
-    @book = Book.new(book_params)
+    @book = Book.new
     @book.namespace = @namespace
     @book.associate_amazon_item_by(params[:asin])
 
     if @book.save
-      redirect_to @book, notice: 'Book was successfully created.'
+      message = namespace_owner? ? 'Book was successfully created.' : 'Book was successfully wished.'
+      redirect_to @book, notice: message
     else
       render :new
     end
@@ -85,8 +87,12 @@ class BooksController < ApplicationController
     )
   end
 
+  def namespace_owner?
+    @_namespace_owner ||= @namespace.owners.include? current_user
+  end
+
   def ensure_namespace_owner!
-   return if @namespace.owners.include? current_user
+   return if namespace_owner?
    redirect_to root_path, alert: 'Access denied.'
   end
 
@@ -94,12 +100,5 @@ class BooksController < ApplicationController
    return unless @namespace.ownerable.is_a?(Organization)
    return if @namespace.ownerable.published?
    redirect_to root_path, alert: 'Access denied.'
-  end
-
-  def ensure_non_owner_allow_to_only_wish!
-    return if @namespace.owners.include? current_user
-    return if book_params[:state_event].blank?
-    return if book_params[:state].blank?
-    redirect_to root_path, alert: 'Invalid parameters.'
   end
 end

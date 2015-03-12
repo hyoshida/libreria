@@ -12,13 +12,9 @@
       - if book.new_record?
         = form_for book do |f|
           = f.hidden_field :asin, name: :asin, value: book.asin
-
-          .form-group
-            = f.label :location_name
-            = f.text_field :location_name
-
           .form-group.text-center
-            = f.submit 'Add to bookshelf', class: 'btn btn-primary'
+            - text = namespace_owner? ? 'Add to bookshelf' : 'Add to wishlist'
+            = f.submit text, class: 'btn btn-primary'
       - else
         .text-center
           span>
