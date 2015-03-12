@@ -1,4 +1,23 @@
 = form_for @book do |f|
   = error_messages_for @book
 
+  .form-gourp
+    = f.label :state_event
+    = f.collection_select :state_event, @book.state_transitions, :event, :human_to_name, include_blank: @book.human_state_name
+
+  .panel.panel-default
+    .panel-heading type="button" data-toggle="collapse" data-target="#libreria-more"
+      strong
+        span.fa.fa-angle-down>
+        | More options
+    #libreria-more.collapse
+      .panel-body
+        .form-gourp
+          = f.label :state
+          = f.collection_select :state, @book.class.state_machines[:state].states, :name, :human_name
+
+        .form-gourp
+          = f.label :arrived_at
+          = f.datetime_field :arrived_at
+
   .actions = f.submit

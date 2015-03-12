@@ -17,7 +17,7 @@ class MembersControllerTest < ActionController::TestCase
       post :requests_complete, organization_id: @organization.id
     end
 
-    assert_redirected_to organization_members_url(@organization)
+    assert_redirected_to organization_url(@organization)
   end
 
   test 'should sent mail to request' do

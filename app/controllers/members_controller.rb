@@ -55,7 +55,7 @@ class MembersController < ApplicationController
 
     if @member.save
       MemberMailer.requests(@organization, @member).deliver_now
-      redirect_to organization_members_url(@organization), notice: 'Member was successfully created.'
+      redirect_to organization_url(@organization), notice: 'Member was successfully created.'
     else
       render :requests
     end

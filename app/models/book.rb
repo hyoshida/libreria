@@ -19,6 +19,8 @@
 class Book < ActiveRecord::Base
   belongs_to :namespace
   belongs_to :amazon_item
+  has_many :wishes
+  has_many :loans
 
   validates :amazon_item_id, uniqueness: { scope: :namespace_id }
   validates :namespace, presence: true
@@ -57,8 +59,14 @@ class Book < ActiveRecord::Base
       transition :onloan => :ready
     end
 
-    before_transition any => :ready do |book, _transition|
+    before_transition :wished => :ready do |book, _transition|
       book.arrived_at = Time.now
+    end
+
+    before_transition :onloan => :ready do |book, _transition|
+      loan = book.loans.unreturned.first
+      return false unless loan
+      loan.touch(:returned_at)
     end
   end
 
@@ -97,12 +105,15 @@ class Book < ActiveRecord::Base
     if amazon_item.nil?
       result = self.class.item_lookup(asin)
       return unless result
-      p result.error
 
       item = self.class.item_lookup(asin).items.first
       return unless item
       amazon_item = AmazonItem.create!(asin: item.get('ASIN'), item: item.to_json)
     end
     self.amazon_item = amazon_item
+  end
+
+  def borrower
+    loans.unreturned.first.try(:user)
   end
 end

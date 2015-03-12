@@ -50,4 +50,43 @@ class BooksControllerTest < ActionController::TestCase
 
     assert_redirected_to namespace_books_path(namespace_path: @namespace.path)
   end
+
+  test 'should wish book' do
+    member = create(:user, namespace: @namespace)
+    sign_in_user member
+
+    assert_difference('Wish.count', +1) do
+      patch :wish, namespace_path: @namespace.path, id: @book
+    end
+
+    assert_redirected_to namespace_book_path(assigns(:book), namespace_path: @namespace.path)
+  end
+
+  test 'should loan book' do
+    other_user = create(:user, namespace: @namespace)
+    sign_in_user other_user
+
+    @book.arrived!
+
+    assert_difference('Loan.unreturned.count', +1) do
+      patch :loan, namespace_path: @namespace.path, id: @book
+    end
+
+    assert_redirected_to namespace_book_path(assigns(:book), namespace_path: @namespace.path)
+  end
+
+  test 'should return book' do
+    other_user = create(:user, namespace: @namespace)
+    sign_in_user other_user
+
+    @book.arrived!
+    @book.loans.build(user: other_user)
+    @book.loaned!
+
+    assert_difference('Loan.unreturned.count', -1) do
+      patch :return, namespace_path: @namespace.path, id: @book
+    end
+
+    assert_redirected_to namespace_book_path(assigns(:book), namespace_path: @namespace.path)
+  end
 end
