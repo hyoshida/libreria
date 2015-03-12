@@ -77,6 +77,8 @@ class BooksController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def book_params
     params.fetch(:book, {}).permit(
+      :state_event,
+      :state,
       :location_name
     )
   end

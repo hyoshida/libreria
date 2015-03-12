@@ -1,0 +1,19 @@
+ja:
+  activerecord:
+    state_machines:
+      book:
+        state:
+          states:
+            wished: '購入希望'
+            ready: '購入済み'
+            onloan: '貸出中'
+          events:
+            arrived: '購入'
+            loaned: '貸出'
+            returned: '返却'
+    errors:
+      models:
+        book:
+          attributes:
+            state:
+              invalid_transition: '%{value}状態では%{event}処理はできません。'

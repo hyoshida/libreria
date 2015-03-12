@@ -17,6 +17,15 @@ dl
     | Image
   dd
     = image_tag @book.medium_image_url if @book.medium_image_url
+dl
+  dt
+    | State
+  dd
+    = @book.human_state_name
+  dt
+    | Arrived at
+  dd
+    = l @book.arrived_at, format: :long if @book.arrived_at
 
 = link_to 'Edit', edit_book_path(@book)
 '|
