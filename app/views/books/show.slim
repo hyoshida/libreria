@@ -38,10 +38,29 @@ dl
 - if @book.state?(:ready)
   = button_to 'Loan', loan_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default'
 
-/ TODO: Add conditions for the borrower
-/ e.g. ... && @book.borrower == current_user
-- if @book.state?(:onloan)
+- if @book.state?(:onloan) && @book.borrower == current_user
   = button_to 'Return', return_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default'
+
+hr
+
+.panel.panel-default
+  .panel-heading
+    .panel-title
+      | Loans (5 of #{@book.loans.count} in total)
+  table.table.table-striped
+    thead
+      tr
+        th
+          | User
+        th
+          | Returned at
+    tbody
+      - @book.loans.order(returned_at: :desc).limit(5).each do |loan|
+        tr
+          td
+            = loan.user.name
+          td
+            = l loan.returned_at, format: :long if loan.returned_at
 
 = link_to 'Edit', edit_book_path(@book)
 '|

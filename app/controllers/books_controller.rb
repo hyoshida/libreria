@@ -84,6 +84,8 @@ class BooksController < ApplicationController
 
   # PATCH/PUT /:namespace_path/books/1/loan
   def loan
+    @book.loans.build(user: current_user)
+
     if @book.loaned
       redirect_to @book, notice: 'Book was successfully loaned.'
     else
@@ -94,6 +96,11 @@ class BooksController < ApplicationController
 
   # PATCH/PUT /:namespace_path/books/1/return
   def return
+    if @book.borrower != current_user
+      flash.now[:alert] = 'Book was already returned.'
+      return render :show
+    end
+
     if @book.returned
       redirect_to @book, notice: 'Book was successfully returned.'
     else

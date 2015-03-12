@@ -18,6 +18,10 @@ class Loan < ActiveRecord::Base
   belongs_to :book
   belongs_to :user
 
+  scope :by, -> (user) { where(user: user) }
+  scope :returned, -> { where.not(returned_at: nil) }
+  scope :unreturned, -> { where(returned_at: nil) }
+
   validates :book_id, uniqueness: { scope: [:user_id, :returned_at] }
   validates :book, presence: true
   validates :user, presence: true
