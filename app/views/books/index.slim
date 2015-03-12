@@ -1,6 +1,6 @@
 .page-header
   h1
-    | Listing books
+    | #{@namespace.ownerable.name}'s Book shelf
 
 .row
   - @books.each do |book|

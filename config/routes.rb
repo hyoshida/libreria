@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   devise_for :users
-  resources :users, only: :index
+  resources :users, param: :path, only: [:index, :show]
 
   resources :organizations do
     resources :members, only: [:index, :new, :create, :destroy] do

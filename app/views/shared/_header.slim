@@ -20,6 +20,9 @@ header.navbar.navbar-default
           span.caret<
         ul.dropdown-menu.animated.fadeInLeft
           li
+            = link_to 'Profile', current_user
+          li.divider
+          li
             - if user_signed_in?
               = link_to destroy_user_session_path, method: :delete do
                 span.fa.fa-sign-out>
