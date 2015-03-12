@@ -20,6 +20,7 @@ class Book < ActiveRecord::Base
   belongs_to :namespace
   belongs_to :amazon_item
   has_many :wishes
+  has_many :loans
 
   validates :amazon_item_id, uniqueness: { scope: :namespace_id }
   validates :namespace, presence: true
