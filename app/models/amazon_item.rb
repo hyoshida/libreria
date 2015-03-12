@@ -30,7 +30,7 @@ class AmazonItem < ActiveRecord::Base
   end
 
   def authors
-    item_attributes['Authors'] | []
+    item_attributes['Authors'] || []
   end
 
   def binding
