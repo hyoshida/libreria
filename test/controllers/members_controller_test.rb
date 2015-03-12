@@ -8,13 +8,13 @@ class MembersControllerTest < ActionController::TestCase
   end
 
   test 'should get request' do
-    get :requests, organization_id: @organization.id
+    get :requests, organization_path: @organization
     assert_response :success
   end
 
   test 'should create inactivated member' do
     assert_difference 'Member.inactivated.count', +1 do
-      post :requests_complete, organization_id: @organization.id
+      post :requests_complete, organization_path: @organization
     end
 
     assert_redirected_to organization_url(@organization)
@@ -22,7 +22,7 @@ class MembersControllerTest < ActionController::TestCase
 
   test 'should sent mail to request' do
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      post :requests_complete, organization_id: @organization.id
+      post :requests_complete, organization_path: @organization
     end
 
     request_email = ActionMailer::Base.deliveries.last
@@ -36,7 +36,7 @@ class MembersControllerTest < ActionController::TestCase
     requested_member = request_by(other_user)
 
     assert_difference 'Member.count', +1 do
-      get :accept, organization_id: @organization.id, request_token: requested_member.request_token
+      get :accept, organization_path: @organization, request_token: requested_member.request_token
     end
 
     assert_redirected_to organization_members_url(@organization)
@@ -48,7 +48,7 @@ class MembersControllerTest < ActionController::TestCase
     requested_member = request_by(other_user)
 
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      get :accept, organization_id: @organization.id, request_token: requested_member.request_token
+      get :accept, organization_path: @organization, request_token: requested_member.request_token
     end
 
     request_email = ActionMailer::Base.deliveries.last

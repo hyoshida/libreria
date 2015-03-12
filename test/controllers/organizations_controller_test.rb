@@ -26,24 +26,24 @@ class OrganizationsControllerTest < ActionController::TestCase
   end
 
   test "should show organization" do
-    get :show, id: @organization
+    get :show, path: @organization
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @organization
+    get :edit, path: @organization
     assert_response :success
   end
 
   test "should update organization" do
     new_name = "New #{@organization.name}"
-    patch :update, id: @organization, organization: { name: new_name }
+    patch :update, path: @organization, organization: { name: new_name }
     assert_redirected_to organization_path(assigns(:organization))
   end
 
   test "should destroy organization" do
     assert_difference('Organization.count', -1) do
-      delete :destroy, id: @organization
+      delete :destroy, path: @organization
     end
 
     assert_redirected_to organizations_path

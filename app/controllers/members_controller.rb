@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_namespace
   before_action :set_organization
   before_action :ensure_organization_owner!, except: [:requests, :requests_complete]
   before_action :ensure_published!, only: [:request, :request_complete]
@@ -78,8 +79,12 @@ class MembersController < ApplicationController
 
   private
 
+  def set_namespace
+    @namespace = Namespace.includes(ownerable: { members: { user: :namespace } }).find_by!(path: params[:organization_path])
+  end
+
   def set_organization
-    @organization = Organization.find(params[:organization_id])
+    @organization = @namespace.ownerable
   end
 
   def member_params

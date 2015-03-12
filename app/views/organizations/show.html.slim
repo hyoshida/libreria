@@ -1,10 +1,30 @@
-ul
-  - @organization.members.each do |member|
-    li
-      = member.email
-      - if member.owner?
-        small<
-          = member.role.text
+.page-header
+  h1
+    = @organization.name
+    .pull-right
+      - if !@organization.users.include? current_user
+        - disabled = @organization.members.inactivated.where(user: current_user).exists?
+        = link_to 'Membership requesting', request_organization_members_path(@organization), class: 'btn btn-primary', disabled: disabled
+
+.row
+  .col-sm-6
+    h2
+      | Main menu
+    ul
+      li
+        = link_to 'Book shelf', namespace_books_path(namespace_path: @namespace.path)
+
+  .col-sm-6
+    h2
+      | Listing members
+    ul
+      - @organization.members.each do |member|
+        li
+          = link_to member.name, member.user
+          - if member.owner?
+            small.badge<
+              = member.role.text
+    = link_to 'Edit members', organization_members_path(@organization), class: 'btn btn-default'
 
 = link_to 'Edit', edit_organization_path(@organization)
 '|

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, param: :path, only: [:index, :show]
 
-  resources :organizations do
+  resources :organizations, param: :path do
     resources :members, only: [:index, :new, :create, :destroy] do
       collection do
         put '/', action: :update
