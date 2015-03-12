@@ -6,6 +6,7 @@
 #  organization_id     :integer          not null
 #  user_id             :integer          not null
 #  role                :string           not null
+#  activated           :boolean          default(TRUE), not null
 #  request_token       :string
 #  request_sent_at     :datetime
 #  request_accepted_at :datetime
