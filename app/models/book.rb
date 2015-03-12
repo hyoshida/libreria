@@ -39,14 +39,14 @@ class Book < ActiveRecord::Base
   delegate :owners, to: :namespace
   delegate :owner, to: :namespace
 
-  state_machine initial: :requested do
-    state :requested
+  state_machine initial: :wished do
+    state :wished
     state :ready, :onloan do
       validates :arrived_at, presence: true
     end
 
     event :arrived do
-      transition :requested => :ready
+      transition :wished => :ready
     end
 
     event :loaned do
