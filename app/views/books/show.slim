@@ -22,10 +22,18 @@ dl
     | State
   dd
     = @book.human_state_name
+    span<
+      - case @book.state.to_sym
+      - when :wished
+        = "(#{number_with_delimiter @book.wishes.count})"
   dt
     | Arrived at
   dd
     = l @book.arrived_at, format: :long if @book.arrived_at
+
+- if @book.state?(:wished)
+  - disabled = @book.wishes.by(current_user).exists?
+  = button_to 'Wish', wish_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default', disabled: disabled
 
 - if @book.state?(:ready)
   = button_to 'Loan', loan_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default'

@@ -3,11 +3,13 @@ class BooksController < ApplicationController
 
   helper_method :namespace_owner?
 
+  ACTIONS_FOR_NON_OWNER = %i( index show create wish loan return )
+
   before_action :authenticate_user!
   before_action :set_namespace
-  before_action :set_book, only: [:show, :edit, :update, :destroy, :loan, :return]
-  before_action :ensure_namespace_owner!, except: [:index, :show, :create, :loan, :return]
-  before_action :ensure_organization_member!, only: [:index, :show, :create, :loan, :return]
+  before_action :set_book, only: [:show, :edit, :update, :destroy, :wish, :loan, :return]
+  before_action :ensure_namespace_owner!, except: ACTIONS_FOR_NON_OWNER
+  before_action :ensure_organization_member!, only: ACTIONS_FOR_NON_OWNER
 
   # GET /:namespace_path/books
   def index
@@ -39,6 +41,7 @@ class BooksController < ApplicationController
     @book = Book.new
     @book.namespace = @namespace
     @book.associate_amazon_item_by(params[:asin])
+    @book.wishes.build(user: current_user)
 
     if @book.save
       message = namespace_owner? ? 'Book was successfully created.' : 'Book was successfully wished.'
@@ -61,6 +64,21 @@ class BooksController < ApplicationController
   def destroy
     @book.destroy
     redirect_to books_url, notice: 'Book was successfully destroyed.'
+  end
+
+  # PATCH/PUT /:namespace_path/books/1/wish
+  def wish
+    if !@book.state?(:wished)
+      flash.now[:alert] = 'Book was already owned.'
+      return render :show
+    end
+
+    if @book.wishes.build(user: current_user).save
+      redirect_to @book, notice: 'Book was successfully wished.'
+    else
+      flash.now[:alert] = 'Book was not wished.'
+      render :show
+    end
   end
 
   # PATCH/PUT /:namespace_path/books/1/loan

@@ -17,6 +17,8 @@ class Wish < ActiveRecord::Base
   belongs_to :book
   belongs_to :user
 
+  scope :by, -> (user) { where(user: user) }
+
   validates :book_id, uniqueness: { scope: :user_id }
   validates :book, presence: true
   validates :user, presence: true
