@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       member do
         put '/loan', action: :loan
         patch '/loan', action: :loan
+        put '/return', action: :return
+        patch '/return', action: :return
       end
     end
   end

@@ -5,9 +5,9 @@ class BooksController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_namespace
-  before_action :set_book, only: [:show, :edit, :update, :destroy, :loan]
-  before_action :ensure_namespace_owner!, except: [:index, :show, :create, :loan]
-  before_action :ensure_organization_member!, only: [:index, :show, :create, :loan]
+  before_action :set_book, only: [:show, :edit, :update, :destroy, :loan, :return]
+  before_action :ensure_namespace_owner!, except: [:index, :show, :create, :loan, :return]
+  before_action :ensure_organization_member!, only: [:index, :show, :create, :loan, :return]
 
   # GET /:namespace_path/books
   def index
@@ -69,6 +69,16 @@ class BooksController < ApplicationController
       redirect_to @book, notice: 'Book was successfully loaned.'
     else
       flash.now[:alert] = 'Book was not loaned.'
+      render :show
+    end
+  end
+
+  # PATCH/PUT /:namespace_path/books/1/return
+  def return
+    if @book.returned
+      redirect_to @book, notice: 'Book was successfully returned.'
+    else
+      flash.now[:alert] = 'Book was not returned.'
       render :show
     end
   end
