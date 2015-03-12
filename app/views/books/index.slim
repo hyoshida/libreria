@@ -2,26 +2,8 @@
   h1
     | Listing books
 
-= form_for books_path, method: :get do |f|
-  .input-group
-    = f.text_field :q, name: :q, value: params[:q], class: 'form-control'
-    .input-group-btn
-      = f.submit 'Search', class: 'btn btn-default'
+.row
+  - @books.each do |book|
+    = render 'item', book: book
 
-hr
-
-- if @res
-  .errors
-    = @res.error
-
-  .row
-    - @res.items.each do |item|
-      - amazon_item = AmazonItem.new(asin: item.get('ASIN'), item: item.to_json)
-      - book = Book.new(amazon_item: amazon_item)
-      = render 'item', book: book
-- else
-  .row
-    - @books.each do |book|
-      = render 'item', book: book
-
-  = link_to 'New Book', new_book_path
+= link_to 'New Book', new_book_path

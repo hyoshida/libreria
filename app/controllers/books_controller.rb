@@ -3,7 +3,7 @@ class BooksController < ApplicationController
 
   helper_method :namespace_owner?
 
-  ACTIONS_FOR_NON_OWNER = %i( index show create wish loan return )
+  ACTIONS_FOR_NON_OWNER = %i( index show new create wish loan return )
 
   before_action :authenticate_user!
   before_action :set_namespace
@@ -14,13 +14,6 @@ class BooksController < ApplicationController
   # GET /:namespace_path/books
   def index
     @books = Book.where(namespace: @namespace)
-    begin
-      @res = Amazon::Ecs.item_search(params[:q], response_group: 'Medium', country: 'jp', search_index: 'Books', power: 'binding:not kindle') if params[:q]
-    rescue
-      retry_count ||= 0
-      retry_count += 1
-      retry if retry_count <= 5
-    end
   end
 
   # GET /:namespace_path/books/1
@@ -30,6 +23,14 @@ class BooksController < ApplicationController
   # GET /:namespace_path/books/new
   def new
     @book = Book.new
+
+    begin
+      @amazon_response = Amazon::Ecs.item_search(params[:q], response_group: 'Medium', country: 'jp', search_index: 'Books', power: 'binding:not kindle') if params[:q]
+    rescue
+      retry_count ||= 0
+      retry_count += 1
+      retry if retry_count <= 5
+    end
   end
 
   # GET /:namespace_path/books/1/edit
