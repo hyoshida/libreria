@@ -99,7 +99,6 @@ class Book < ActiveRecord::Base
     if amazon_item.nil?
       result = self.class.item_lookup(asin)
       return unless result
-      p result.error
 
       item = self.class.item_lookup(asin).items.first
       return unless item
