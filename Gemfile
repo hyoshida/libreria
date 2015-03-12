@@ -58,6 +58,9 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'enumerize', '~> 0.10.1'
 gem 'state_machines-activerecord', '~> 0.2.0'
 
+# DynamicForm holds a few helpers method: e.g. `error_messages_for`
+gem 'dynamic_form', '~> 1.1.4'
+
 group :development do
   # Add a comment summarizing the current schema to each files
   gem 'annotate', '~> 2.6.7'

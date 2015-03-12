@@ -1,27 +1,22 @@
-p#notice = notice
-
-- item_attributes = @book.item['ItemAttributes'] || {}
 dl
   dt
     | ASIN
   dd
-    = link_to @book.asin, @book.item['DetailPageURL']
+    = link_to @book.asin, @book.detail_page_url
   dt
     | Title
   dd
-    = item_attributes['Title']
+    = @book.title
     small<
-      = item_attributes['Binding']
+      = @book.binding
   dt
     | Auhtors
   dd
-    = item_attributes['Authors'].try(:join, ',')
+    = @book.authors.join(',')
   dt
     | Image
   dd
-    - medium_image = @book.item['MediumImage'] || {}
-    - medium_image_url = medium_image['URL']
-    = image_tag medium_image_url if medium_image_url
+    = image_tag @book.medium_image_url if @book.medium_image_url
 
 = link_to 'Edit', edit_book_path(@book)
 '|
