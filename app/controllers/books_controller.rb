@@ -3,8 +3,10 @@ class BooksController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_namespace
-  before_action :authenticate_user_for_namespace!
   before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_namespace_owner!, except: [:index, :show, :create]
+  before_action :ensure_organization_member!, only: [:index, :show, :create]
+  before_action :ensure_non_owner_allow_to_only_wish!, only: :create
 
   # GET /:namespace_path/books
   def index
@@ -83,9 +85,21 @@ class BooksController < ApplicationController
     )
   end
 
-  def authenticate_user_for_namespace!
-   return if action_name.in?(['index', 'show']) && @namespace.ownerable.is_a?(Organization) && @namespace.ownerable.published
+  def ensure_namespace_owner!
    return if @namespace.owners.include? current_user
-   redirect_to root_path, alert: 'Access is not allowed'
+   redirect_to root_path, alert: 'Access denied.'
+  end
+
+  def ensure_organization_member!
+   return unless @namespace.ownerable.is_a?(Organization)
+   return if @namespace.ownerable.published?
+   redirect_to root_path, alert: 'Access denied.'
+  end
+
+  def ensure_non_owner_allow_to_only_wish!
+    return if @namespace.owners.include? current_user
+    return if book_params[:state_event].blank?
+    return if book_params[:state].blank?
+    redirect_to root_path, alert: 'Invalid parameters.'
   end
 end
