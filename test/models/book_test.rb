@@ -9,6 +9,7 @@ class BookTest < ActiveSupport::TestCase
 
   should belong_to(:namespace)
   should belong_to(:amazon_item)
+  should have_many(:wishes)
 
   should validate_uniqueness_of(:amazon_item_id).scoped_to(:namespace_id)
   should validate_presence_of(:namespace)
