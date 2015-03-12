@@ -27,6 +27,9 @@ dl
   dd
     = l @book.arrived_at, format: :long if @book.arrived_at
 
+- if @book.state?(:ready)
+  = button_to 'Loan', loan_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default'
+
 = link_to 'Edit', edit_book_path(@book)
 '|
 = link_to 'Back', books_path

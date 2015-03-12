@@ -19,6 +19,11 @@ Rails.application.routes.draw do
   end
 
   resources :namespaces, path: '/', param: :path, constraints: { path: /[-_.a-zA-Z0-9]+/ }, only: :show do
-    resources :books
+    resources :books do
+      member do
+        put '/loan', action: :loan
+        patch '/loan', action: :loan
+      end
+    end
   end
 end
