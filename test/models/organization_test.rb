@@ -3,8 +3,7 @@ require 'test_helper'
 class OrganizationTest < ActiveSupport::TestCase
   should have_one(:namespace)
   should have_many(:members)
-  should have_many(:_owner_members).class_name(Member.name).conditions(role: 'owner')
-  should have_many(:owners).through(:_owner_members).source(:user)
+  should have_many(:users).through(:members)
 
   should accept_nested_attributes_for(:namespace)
   should accept_nested_attributes_for(:members)

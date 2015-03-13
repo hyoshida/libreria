@@ -14,4 +14,9 @@
       = ff.label :path
       = ff.text_field :path
 
+  - if @organization.persisted?
+    .form-group
+      = f.label :email
+      = f.text_field :email
+
   .actions = f.submit

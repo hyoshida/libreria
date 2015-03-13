@@ -27,11 +27,15 @@ class User < ActiveRecord::Base
   extend Enumerize
 
   has_one :namespace, as: :ownerable
+  has_many :members
+  has_many :organizations, through: :members
 
   accepts_nested_attributes_for :namespace
 
   validates :namespace, presence: true
   validates :role, presence: true, length: { maximum: 255 }
+
+  delegate :path, to: :namespace
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -41,6 +45,10 @@ class User < ActiveRecord::Base
     none
     admin
   ), default: :none, predicates: true
+
+  def to_param
+    path
+  end
 
   def name
     namespace.path

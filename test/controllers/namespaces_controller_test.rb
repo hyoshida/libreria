@@ -2,13 +2,15 @@ require 'test_helper'
 
 class NamespacesControllerTest < ActionController::TestCase
   test 'should show namespace with organization' do
-    namespace = create(:namespace, :with_organization)
+    organization = create(:organization)
+    namespace = organization.namespace
     get :show, path: namespace.path
-    assert_redirected_to organization_path(namespace.ownerable)
+    assert_redirected_to organization_path(organization)
   end
 
   test 'should show namespace with user' do
-    namespace = create(:namespace, :with_user)
+    user = create(:user)
+    namespace = user.namespace
     get :show, path: namespace.path
     assert_redirected_to root_path
   end

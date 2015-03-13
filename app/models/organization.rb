@@ -14,8 +14,6 @@ class Organization < ActiveRecord::Base
   has_one :namespace, as: :ownerable
   has_many :members
   has_many :users, through: :members
-  has_many :owners, through: :_owner_members, source: :user
-  has_many :_owner_members, -> { with_role(:owner) }, class_name: Member.name
 
   accepts_nested_attributes_for :namespace
   accepts_nested_attributes_for :members
@@ -27,6 +25,16 @@ class Organization < ActiveRecord::Base
   validates :members, presence: true
 
   before_validation :copy_email_from_owner, on: :create
+
+  delegate :path, to: :namespace
+
+  def to_param
+    path
+  end
+
+  def owners
+    User.joins(:members).merge(members.with_role(:owner))
+  end
 
   private
 

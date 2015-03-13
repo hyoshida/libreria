@@ -1,5 +1,6 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_namespace, except: [:index, :new, :create]
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
   before_action :ensure_organization_owner!, only: [:edit, :update, :destroy]
 
@@ -51,9 +52,13 @@ class OrganizationsController < ApplicationController
 
   private
 
+  def set_namespace
+    @namespace = Namespace.includes(ownerable: { members: { user: :namespace } }).find_by!(path: params[:path])
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_organization
-    @organization = Organization.find(params[:id])
+    @organization = @namespace.ownerable
   end
 
   def organization_params

@@ -1,0 +1,23 @@
+.page-header
+  h1
+    = @user.name
+
+.row
+  .col-sm-6
+    h2
+      | Main menu
+    ul
+      li
+        = link_to 'Book shelf', namespace_books_path(namespace_path: @namespace.path)
+    - if current_user == @user
+      ul
+        li
+          = link_to 'New organization', new_organization_path
+
+  .col-sm-6
+    h2
+      | Listing organization
+    ul
+      - @user.organizations.each do |organization|
+        li
+          = link_to organization.name, organization
