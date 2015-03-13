@@ -25,6 +25,7 @@ class Organization < ActiveRecord::Base
   validates :members, presence: true
 
   before_validation :copy_email_from_owner, on: :create
+  before_validation :copy_name_from_namespace, on: :create
 
   delegate :path, to: :namespace
 
@@ -36,11 +37,19 @@ class Organization < ActiveRecord::Base
     User.joins(:members).merge(members.with_role(:owner))
   end
 
+  def username
+    namespace.path
+  end
+
   private
 
   def copy_email_from_owner
     owner = members.first
     return unless owner
     self.email = owner.email
+  end
+
+  def copy_name_from_namespace
+    self.name = username
   end
 end

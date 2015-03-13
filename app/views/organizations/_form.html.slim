@@ -2,17 +2,18 @@
   = error_messages_for @organization
 
   .form-group
-    = f.label :name
-    = f.text_field :name
+    = f.fields_for :namespace do |ff|
+      = ff.label :path
+      = ff.text_field :path, autofocus: true
+
+  - if @organization.persisted?
+    .form-group
+      = f.label :name
+      = f.text_field :name
 
   .form-group
     = f.check_box :published
     = f.label :published
-
-  .form-group
-    = f.fields_for :namespace do |ff|
-      = ff.label :path
-      = ff.text_field :path
 
   - if @organization.persisted?
     .form-group
