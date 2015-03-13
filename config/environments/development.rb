@@ -19,6 +19,9 @@ Rails.application.configure do
   # Set up the default URL options
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  # Delivery mail via sendmail.
+  config.action_mailer.delivery_method = :sendmail
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
