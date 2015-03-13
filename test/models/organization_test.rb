@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class OrganizationTest < ActiveSupport::TestCase
+  subject { create(:organization) }
+
   should have_one(:namespace)
   should have_many(:members)
   should have_many(:users).through(:members)

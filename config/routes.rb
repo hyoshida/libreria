@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :namespaces, path: '/', param: :path, constraints: { path: /[-_.a-zA-Z0-9]+/ }, only: :show do
+  resources :namespaces, path: '/', param: :path, constraints: { path: Namespace.path_regexp }, only: :show do
     resources :books do
       member do
         put '/wish', action: :wish
