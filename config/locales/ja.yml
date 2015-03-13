@@ -1,5 +1,88 @@
 ja:
   activerecord:
+    attributes:
+      amazon_item:
+        asin: 'ASIN'
+        item: '商品情報'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+
+      book:
+        amazon_item: 'アマゾン商品'
+        amazon_item_id: 'アマゾン商品ID'
+        namespace: '名前空間'
+        namespace_id: '名前空間ID'
+        state: '状態'
+        location_name: '所在地'
+        arrived_at: '購入日時'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+
+      loan:
+        book: '書籍'
+        book_id: '書籍ID'
+        user: 'ユーザー'
+        user_id: 'ユーザーID'
+        returned_at: '返却日時'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+
+      member:
+        organization: 'グループ'
+        organization_id: 'グループID'
+        user: 'ユーザー'
+        user_id: 'ユーザーID'
+        activated: '有効にする'
+        request_token: 'リクエストトークン'
+        request_sent_at: 'リクエスト送信日時'
+        request_accepted_at: 'リクエスト承認日時'
+        request_acceptor: 'リクエスト承認者'
+        request_acceptor_id: 'リクエスト承認者ID'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+
+      namespace:
+        ownerable: '所有者'
+        ownerable_id: '所有者ID'
+        ownerable_type: '所有者タイプ'
+        path: 'パス'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+
+      organization:
+        name: 'グループ名'
+        email: 'メールアドレス'
+        published: '公開にする'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+
+      user:
+        name: 'ニックネーム'
+        role: '権限'
+        email: 'メールアドレス'
+        password: 'パスワード'
+        encrypted_password: 'パスワード'
+        password_confirmation: 'パスワード確認'
+        reset_password_token: 'パスワードリセットトークン'
+        reset_password_sent_at: 'パスワードリセット送信日時'
+        remember_me: 'ログイン状態を記憶'
+        remember_created_at: 'ログイン状態記憶作成日時'
+        sign_in_count: 'ログイン回数'
+        current_sign_in_at: 'ログイン日時'
+        last_sign_in_at: '最終ログイン日時'
+        current_sign_in_ip: 'ログインIP'
+        last_sign_in_ip: '最終ログインIP'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+
+      wish:
+        book: '書籍'
+        book_id: '書籍ID'
+        user: 'ユーザー'
+        user_id: 'ユーザーID'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+
     state_machines:
       book:
         state:
@@ -11,6 +94,7 @@ ja:
             arrived: '購入'
             loaned: '貸出'
             returned: '返却'
+
     errors:
       models:
         book:
