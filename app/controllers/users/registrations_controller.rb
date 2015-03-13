@@ -13,6 +13,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def permitted_attributes
-    { namespace_attributes: :path }
+    { namespace_attributes: [:id, :path] }
   end
 end
