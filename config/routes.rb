@@ -8,8 +8,7 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     registrations: 'users/registrations',
     sessions: 'users/sessions',
-    unlocks: 'users/unlocks',
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    unlocks: 'users/unlocks'
   }
   resources :users, param: :path, only: [:index, :show]
 
