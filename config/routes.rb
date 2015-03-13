@@ -3,7 +3,13 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  devise_for :users
+  devise_for :users, controllers: {
+    confirmations: 'users/confirmations',
+    passwords: 'users/passwords',
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    unlocks: 'users/unlocks'
+  }
   resources :users, param: :path, only: [:index, :show]
 
   resources :organizations, param: :path do
@@ -18,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :namespaces, path: '/', param: :path, constraints: { path: /[-_.a-zA-Z0-9]+/ }, only: :show do
+  resources :namespaces, path: '/', param: :path, constraints: { path: Namespace.path_regexp }, only: :show do
     resources :books do
       member do
         put '/wish', action: :wish

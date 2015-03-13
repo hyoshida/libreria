@@ -16,9 +16,13 @@
 #
 
 class Namespace < ActiveRecord::Base
+  mattr_accessor :path_regexp
+  @@path_regexp = /[-_.a-zA-Z0-9]+/
+
   belongs_to :ownerable, polymorphic: true
 
   validates :path, presence: true, uniqueness: true, length: { maximum: 255 }
+  validates :path, format: { with: /\A#{path_regexp}\z/ }
 
   def owners
     if ownerable.is_a? Organization
