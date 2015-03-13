@@ -26,9 +26,12 @@
 class User < ActiveRecord::Base
   extend Enumerize
 
-  has_one :namespace, as: :ownerable
-  has_many :members
+  has_one :namespace, as: :ownerable, dependent: :destroy
+  has_many :members, dependent: :destroy
   has_many :organizations, through: :members
+  # TODO: Should change the dependent of associations to soft-delete
+  has_many :wishes, dependent: :destroy
+  has_many :loans, dependent: :destroy
 
   accepts_nested_attributes_for :namespace
 

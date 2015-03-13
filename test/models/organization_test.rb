@@ -3,8 +3,8 @@ require 'test_helper'
 class OrganizationTest < ActiveSupport::TestCase
   subject { create(:organization) }
 
-  should have_one(:namespace)
-  should have_many(:members)
+  should have_one(:namespace).dependent(:destroy)
+  should have_many(:members).dependent(:destroy)
   should have_many(:users).through(:members)
 
   should accept_nested_attributes_for(:namespace)
