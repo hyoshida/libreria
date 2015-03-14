@@ -1,12 +1,12 @@
 .page-header
   h1
-    | New book
+    = t(:new_book)
 
 = form_for books_path, method: :get do |f|
   .input-group
     = f.text_field :q, name: :q, value: params[:q], class: 'form-control'
     .input-group-btn
-      = f.submit 'Search', class: 'btn btn-default'
+      = f.submit t(:search), class: 'btn btn-default'
 
 hr
 
@@ -20,4 +20,4 @@ hr
       - book = Book.new(amazon_item: amazon_item)
       = render 'item', book: book
 
-= link_to 'Back', books_path
+= link_to t(:back), books_path

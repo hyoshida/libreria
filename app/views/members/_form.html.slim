@@ -6,7 +6,6 @@
     = f.hidden_field :user_id, class: 'search-user form-control', data: { source: users_path }
 
   .form-group
-    = f.label :role
     = f.select :role, f.object.class.role.options
 
   .actions = f.submit

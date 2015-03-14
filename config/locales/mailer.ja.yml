@@ -1,0 +1,25 @@
+ja:
+  member_mailer:
+    requests:
+      subject: 'Libreria: グループへの参加リクエストが届いています'
+      dear: 'グループオーナーさん'
+      instructions: "あなたのグループに %{name} さんから参加リクエストが届いています！\n承認するには以下のURLにアクセスしてください。"
+    accept:
+      subject: 'Libreria: グループへの参加リクエストが承認されました'
+      dear: '%{name} さん'
+      instructions: "グループへの参加リクエストが承認されました！\n以下のURLからグループのページにアクセスすることができます。"
+  # TODO: Add subjects
+  user_mailer:
+    confirmation_instructions:
+      subject: ''
+      dear: 'ようこそ %{name} さん！'
+      instructions: 'ユーザー登録を完了するには以下のURLにアクセスしてください。'
+    reset_password_instructions:
+      subject: ''
+      dear: '%{name} さん'
+      instructions: 'パスワード変更のリクエストがありました。実施する場合は以下のJURLにアクセスしてください。'
+      warning: "もしパスワード変更のリクエストに心当たりがない場合は、このメールを無視してください。\nURLにアクセスするまではパスワードの変更は実施されません。"
+    unlock_instructions:
+      subject: ''
+      dear: '%{name} さん'
+      instructions: "ユーザー認証の試行回数が上限を越えたため、あなたのアカウントはロックされました。\nロックを解除するには以下のURLにアクセスしてください。"

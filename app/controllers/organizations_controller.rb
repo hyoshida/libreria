@@ -29,7 +29,7 @@ class OrganizationsController < ApplicationController
     @organization.members_attributes = [ user: current_user, role: :owner, activated: true ]
 
     if @organization.save
-      redirect_to @organization, notice: 'Organization was successfully created.'
+      redirect_to @organization, notice: flash_message_for(@organization, :successfully_created)
     else
       render :new
     end
@@ -38,7 +38,7 @@ class OrganizationsController < ApplicationController
   # PATCH/PUT /organizations/1
   def update
     if @organization.update(organization_params)
-      redirect_to @organization, notice: 'Organization was successfully updated.'
+      redirect_to @organization, notice: flash_message_for(@organization, :successfully_updated)
     else
       render :edit
     end
@@ -47,7 +47,7 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/1
   def destroy
     @organization.destroy
-    redirect_to organizations_url, notice: 'Organization was successfully destroyed.'
+    redirect_to organizations_url, notice: flash_message_for(@organization, :successfully_destroyed)
   end
 
   private
@@ -71,6 +71,6 @@ class OrganizationsController < ApplicationController
 
   def ensure_organization_owner!
     return if @organization.owners.include? current_user
-    redirect_to root_path, alert: 'Access denied.'
+    redirect_to root_path, alert: t(:access_denied)
   end
 end

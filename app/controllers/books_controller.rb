@@ -45,7 +45,7 @@ class BooksController < ApplicationController
     @book.wishes.build(user: current_user)
 
     if @book.save
-      message = namespace_owner? ? 'Book was successfully created.' : 'Book was successfully wished.'
+      message = namespace_owner? ? flash_message_for(@book, :successfully_created) : t(:book_was_successfully_wished)
       redirect_to @book, notice: message
     else
       render :new
@@ -55,7 +55,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /:namespace_path/books/1
   def update
     if @book.update(book_params)
-      redirect_to @book, notice: 'Book was successfully updated.'
+      redirect_to @book, notice: flash_message_for(@book, :successfully_updated)
     else
       render :edit
     end
@@ -64,20 +64,21 @@ class BooksController < ApplicationController
   # DELETE /:namespace_path/books/1
   def destroy
     @book.destroy
-    redirect_to books_url, notice: 'Book was successfully destroyed.'
+    redirect_to books_url, notice: flash_message_for(@book, :successfully_destroyed)
   end
 
   # PATCH/PUT /:namespace_path/books/1/wish
   def wish
     if !@book.state?(:wished)
-      flash.now[:alert] = 'Book was already owned.'
+      flash.now[:alert] = t(:book_was_already_owned)
       return render :show
     end
 
-    if @book.wishes.build(user: current_user).save
-      redirect_to @book, notice: 'Book was successfully wished.'
+    @book.wishes.build(user: current_user)
+
+    if @book.save
+      redirect_to @book, notice: t(:book_was_successfully_wished)
     else
-      flash.now[:alert] = 'Book was not wished.'
       render :show
     end
   end
@@ -87,9 +88,8 @@ class BooksController < ApplicationController
     @book.loans.build(user: current_user)
 
     if @book.loaned
-      redirect_to @book, notice: 'Book was successfully loaned.'
+      redirect_to @book, notice: t(:book_was_successfully_loaned)
     else
-      flash.now[:alert] = 'Book was not loaned.'
       render :show
     end
   end
@@ -97,14 +97,13 @@ class BooksController < ApplicationController
   # PATCH/PUT /:namespace_path/books/1/return
   def return
     if @book.borrower != current_user
-      flash.now[:alert] = 'Book was already returned.'
+      flash.now[:alert] = t(:book_was_already_returned)
       return render :show
     end
 
     if @book.returned
-      redirect_to @book, notice: 'Book was successfully returned.'
+      redirect_to @book, notice: t(:book_was_successfully_returned)
     else
-      flash.now[:alert] = 'Book was not returned.'
       render :show
     end
   end
@@ -149,6 +148,6 @@ class BooksController < ApplicationController
   end
 
   def redirect_to_access_denied
-   redirect_to (@book ? @book : books_path), alert: 'Access denied.'
+   redirect_to (@book ? @book : books_path), alert: t(:access_denied)
   end
 end

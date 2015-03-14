@@ -5,20 +5,20 @@
 .row
   .col-sm-6
     h2
-      | Main menu
+      = t(:main_menu)
     ul
       li
-        = link_to 'Book shelf', namespace_books_path(namespace_path: @namespace.path)
+        = link_to t(:bookshelf), namespace_books_path(namespace_path: @namespace.path)
     - if current_user == @user
       ul
         li
-          = link_to 'New organization', new_organization_path
+          = link_to t(:new_organization), new_organization_path
         li
-          = link_to 'Edit user', edit_user_registration_path
+          = link_to t(:edit_profile), edit_user_registration_path
 
   .col-sm-6
     h2
-      | Listing organization
+      = t(:listing, item: t(:organization))
     ul
       - @user.organizations.each do |organization|
         li

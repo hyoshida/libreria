@@ -1,10 +1,10 @@
 h1
-  | Request to the organization
+  = t(:request_membership)
 
 = form_for @member, url: request_organization_members_path(@organization) do |f|
   = error_messages_for @member
-  = f.submit 'Request'
+  = f.submit t(:request)
 
 br
 
-= link_to 'Show Organization', organization_path(@organization)
+= link_to t(:back), organization_path(@organization)

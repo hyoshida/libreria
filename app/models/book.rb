@@ -42,6 +42,8 @@ class Book < ActiveRecord::Base
   delegate :owners, to: :namespace
   delegate :owner, to: :namespace
 
+  alias_method :name, :title
+
   state_machine initial: :wished do
     state :wished
     state :ready, :onloan do

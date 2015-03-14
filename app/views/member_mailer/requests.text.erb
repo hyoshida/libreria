@@ -1,5 +1,6 @@
-@<%= @member.name %> requests to join your organization!
+<%= t('member_mailer.requests.dear') %>
 
-Please click the URL below when you accept this request.
+<%= t('member_mailer.requests.instructions', name: @member.name) %>
 
+<%= @organization.name %>:
 <%= accept_organization_members_url(@organization, request_token: @member.request_token) %>

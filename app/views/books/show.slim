@@ -1,67 +1,71 @@
-dl
-  dt
-    | ASIN
-  dd
-    = link_to @book.asin, @book.detail_page_url
-  dt
-    | Title
-  dd
-    = @book.title
-    small<
-      = @book.binding
-  dt
-    | Auhtors
-  dd
-    = @book.authors.join(',')
-  dt
-    | Image
-  dd
-    = image_tag @book.medium_image_url if @book.medium_image_url
-dl
-  dt
-    | State
-  dd
-    = @book.human_state_name
-    span<
-      - case @book.state.to_sym
-      - when :wished
-        = "(#{number_with_delimiter @book.wishes.count})"
-  dt
-    | Arrived at
-  dd
-    = l @book.arrived_at, format: :long if @book.arrived_at
+.row
+  .col-sm-3.col-xs-6
+    .text-center
+      - if @book.medium_image_url
+        = link_to @book.detail_page_url, class: 'thumbnail' do
+          = image_tag @book.medium_image_url, width: '100%'
+  .col-sm-9.col-xs-6
+    .page-header
+      h4
+        = @book.title
+        small<
+          = @book.binding
+      = @book.authors.join(',')
 
-- if @book.state?(:wished)
-  - disabled = @book.wishes.by(current_user).exists?
-  = button_to 'Wish', wish_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default', disabled: disabled
+    ul.list-inline
+      li
+        = @book.human_state_name
+        span.badge<
+          - case @book.state.to_sym
+          - when :wished
+            = number_with_delimiter @book.wishes.count
 
-- if @book.state?(:ready)
-  = button_to 'Loan', loan_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default'
+      li
+        - if @book.state?(:wished)
+          - disabled = @book.wishes.by(current_user).exists?
+          = button_to t(:wish), wish_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default', disabled: disabled
 
-- if @book.state?(:onloan) && @book.borrower == current_user
-  = button_to 'Return', return_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default'
+        - if @book.state?(:ready)
+          = button_to t(:loan), loan_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default'
+
+        - if @book.state?(:onloan) && @book.borrower == current_user
+          = button_to t(:return), return_namespace_book_path(@book, namespace_path: @namespace.path), method: :patch, class: 'btn btn-default'
 
 hr
 
-.panel.panel-default
-  .panel-heading
-    .panel-title
-      | Loans (5 of #{@book.loans.count} in total)
-  table.table.table-striped
-    thead
-      tr
-        th
-          | User
-        th
-          | Returned at
-    tbody
-      - @book.loans.order(returned_at: :desc).limit(5).each do |loan|
-        tr
-          td
-            = loan.user.name
-          td
-            = l loan.returned_at, format: :long if loan.returned_at
+dl
+  dt
+    = t(:asin)
+  dd
+    = link_to @book.asin, @book.detail_page_url
+  - if @book.arrived_at
+    dt
+      = t(:arrived_at)
+    dd
+      = l @book.arrived_at.to_date, format: :long
 
-= link_to 'Edit', edit_book_path(@book)
+hr
+
+- if @book.loans.any?
+  .panel.panel-default
+    .panel-heading
+      .panel-title
+        = t(:recently_loans, count: @book.loans.count, maximum: 5)
+    table.table.table-striped
+      thead
+        tr
+          th
+            = t(:user)
+          th
+            = t(:returned_at)
+      tbody
+        - @book.loans.order(returned_at: :desc).limit(5).each do |loan|
+          tr
+            td
+              = loan.user.name
+            td
+              = l loan.returned_at.to_date, format: :long if loan.returned_at
+
+= link_to t(:edit), edit_book_path(@book)
 '|
-= link_to 'Back', books_path
+= link_to t(:back), books_path

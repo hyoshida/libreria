@@ -1,9 +1,9 @@
 .page-header
   h1
-    | #{@namespace.ownerable.name}'s Book shelf
+    = t(:whose_bookshelf, user: @namespace.ownerable.name)
 
 .row
   - @books.each do |book|
     = render 'item', book: book
 
-= link_to 'New Book', new_book_path
+= link_to t(:new_book), new_book_path

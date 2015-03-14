@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
   def authenticate_admin_user!
     return authenticate_user! unless current_user
     return if current_user.admin?
-    redirect_to root_path, alert: I18n.t('devise.failure.unauthenticated')
+    redirect_to root_path, alert: t(:access_denied)
+  end
+
+  def flash_message_for(resource, key)
+    resource_name = resource.class.model_name.human
+    resource_name += " \"#{resource.name}\"" if resource.respond_to?(:name) && resource.name.present?
+    t(key, resource: resource_name)
   end
 end

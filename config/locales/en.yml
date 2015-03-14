@@ -1,19 +1,60 @@
 en:
-  activerecord:
-    state_machines:
-      book:
-        state:
-          states:
-            wished: 'Wished'
-            ready: 'Ready'
-            onloan: 'On loan'
-          events:
-            arrived: 'Arrived'
-            loaned: 'Loaned'
-            returned: 'Returned'
-    errors:
-      models:
-        book:
-          attributes:
-            state:
-              invalid_transition: 'cannot %{event}'
+  access_denied: 'Access denied.'
+  add_to_wishlist: 'Add to wishlist'
+  add_to_bookshelf: 'Add to bookshelf'
+  are_you_sure: 'Are you sure?'
+  arrived_at: 'Arrived at'
+  asin: 'ASIN'
+  back: 'Back'
+  bookshelf: 'Bookshelf'
+  book_was_already_owned: 'Book was already owned.'
+  book_was_already_returned: 'Book was already returned.'
+  book_was_successfully_loaned: 'Book was successfully loaned.'
+  book_was_successfully_returned: 'Book was successfully returned.'
+  book_was_successfully_wished: 'Book was successfully wished.'
+  cancel_my_account: 'Cancel my account'
+  change_your_password: 'Change your password'
+  confirm_new_password: 'Confirm new password'
+  currently_waiting_confirmation_for: 'Currently waiting confirmation for:'
+  destroy: 'Destroy'
+  edit: 'Edit'
+  edit_member: 'Edit member'
+  edit_profile: 'Edit profile'
+  editing: 'Editing "%{item}"'
+  forgot_your_password: 'Forgot your password?'
+  guest: 'Guest'
+  leave_blank_if_you_dont_want_to_change_it: "(leave blank if you don't want to change it)"
+  listing: 'Listing "%{item}"'
+  loan: 'Loan'
+  new_book: 'New book'
+  new_member: 'New member'
+  new_organization: 'New organization'
+  new_password: 'New password'
+  main_menu: 'Main menu'
+  member: 'Member'
+  membership_was_successfully_accepted: 'Membership was successfully accepted.'
+  membership_was_successfully_requested: 'Membership was successfully requested.'
+  minimum_number_of_characters: '(%{minimum} characters minimum)'
+  more_options: 'More optioons'
+  organization: 'Organization'
+  organization_is_unpublished: 'Organization is unpublished.'
+  profile: 'Profile'
+  recently_loans: 'Recently loans (%{maximum} of %{count} in total)'
+  return: 'Return'
+  returned_at: 'Returned at'
+  request: 'Request'
+  request_membership: 'Request membership'
+  search: 'Search'
+  send_me_reset_password_instructions: 'Send me reset password instructions'
+  show: 'Show'
+  sign_in: 'Login'
+  sign_out: 'Logout'
+  sign_up: 'Sign up'
+  successfully_created: '%{resource} was successfully created.'
+  successfully_destroyed: '%{resource} was successfully destroyed.'
+  successfully_updated: '%{resource} was successfully updated.'
+  token_is_broken: 'Token is broken.'
+  user: 'User'
+  we_need_your_current_password_to_confirm_your_changes: '(we need your current password to confirm your changes)'
+  wish: 'Wish'
+  whose_bookshelf: "%{user}'s bookshelf"

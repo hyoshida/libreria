@@ -1,5 +1,6 @@
-Your request is accepted!
+<%= t('member_mailer.accept.dear', name: @member.name) %>
 
-Please click the URL below to access your organization: <%= @organization.name %>.
+<%= t('member_mailer.accept.instructions') %>
 
+<%= @organization.name %>:
 <%= organization_url(@organization) %>
