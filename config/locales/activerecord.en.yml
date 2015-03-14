@@ -1,5 +1,15 @@
 en:
   activerecord:
+    models:
+      amazon_item: 'Amazon item'
+      book: 'Book'
+      loan: 'Loan'
+      member: 'Member'
+      namespace: 'Namespace'
+      organization: 'Organization'
+      user: 'User'
+      wish: 'Wish'
+
     attributes:
       amazon_item:
         asin: 'ASIN'

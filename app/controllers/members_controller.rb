@@ -21,7 +21,7 @@ class MembersController < ApplicationController
     @member.activated = true
 
     if @member.save
-      redirect_to organization_members_url(@organization), notice: 'Member was successfully created.'
+      redirect_to organization_members_url(@organization), notice: flash_message_for(@member, :successfully_created)
     else
       render :new
     end
@@ -30,7 +30,7 @@ class MembersController < ApplicationController
   # PATCH/PUT /organizations/:organization_id/members
   def update
     if @organization.update(organization_params)
-      redirect_to organization_members_url(@organization), notice: 'Members was successfully updated.'
+      redirect_to organization_members_url(@organization), notice: flash_message_for(@member, :successfully_updated)
     else
       render :index
     end
@@ -40,7 +40,7 @@ class MembersController < ApplicationController
   def destroy
     @member = @organization.members.find(params[:id])
     @member.destroy
-    redirect_to organization_members_url(@organization), notice: 'Member was successfully destroyed.'
+    redirect_to organization_members_url(@organization), notice: flash_message_for(@member, :successfully_destroyed)
   end
 
   # GET /organizations/:organization_id/members/request
@@ -56,7 +56,7 @@ class MembersController < ApplicationController
 
     if @member.save
       MemberMailer.requests(@organization, @member).deliver_now
-      redirect_to organization_url(@organization), notice: 'Member was successfully created.'
+      redirect_to organization_url(@organization), notice: t(:membership_was_successfully_requested)
     else
       render :requests
     end
@@ -71,9 +71,9 @@ class MembersController < ApplicationController
 
     if member.save
       MemberMailer.accept(@organization, member).deliver_now
-      redirect_to organization_members_url(@organization), notice: 'Request accepted.'
+      redirect_to organization_members_url(@organization), notice: t(:membership_was_successfully_accepted)
     else
-      redirect_to organization_members_url(@organization), alert: 'Request token is broken.'
+      redirect_to organization_members_url(@organization), alert: t(:token_is_broken)
     end
   end
 
@@ -102,11 +102,11 @@ class MembersController < ApplicationController
 
   def ensure_organization_owner!
     return if @organization.owners.include? current_user
-    redirect_to root_path, alert: 'Access denied.'
+    redirect_to root_path, alert: t(:access_denied)
   end
 
   def ensure_published!
     return if @organization.published?
-    redirect_to root_path, alert: 'Organization is unpublished.'
+    redirect_to root_path, alert: t(:organization_is_unpublished)
   end
 end

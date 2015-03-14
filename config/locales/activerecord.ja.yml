@@ -1,5 +1,15 @@
 ja:
   activerecord:
+    models:
+      amazon_item: 'アマゾン商品'
+      book: '書籍'
+      loan: '貸出'
+      member: 'メンバー'
+      namespace: '名前空間'
+      organization: 'グループ'
+      user: 'ユーザー'
+      wish: '購入リクエスト'
+
     attributes:
       amazon_item:
         asin: 'ASIN'
