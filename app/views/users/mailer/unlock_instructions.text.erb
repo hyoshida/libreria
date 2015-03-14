@@ -1,0 +1,5 @@
+<%= t('user_mailer.unlock_instructions.dear', name: @resource.name) %>
+
+<%= t('user_mailer.unlock_instructions.instructions') %>
+
+<%= unlock_url(@resource, unlock_token: @token) %>
