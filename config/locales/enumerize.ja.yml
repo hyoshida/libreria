@@ -1,0 +1,8 @@
+ja:
+  enumerize:
+    user: &user
+      role:
+        owner: 'オーナー'
+        none: 'なし'
+    member:
+      <<: *user

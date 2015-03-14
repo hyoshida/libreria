@@ -1,0 +1,8 @@
+en:
+  enumerize:
+    user: &user
+      role:
+        owner: 'Owner'
+        none: 'None'
+    member:
+      <<: *user

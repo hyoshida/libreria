@@ -1,4 +1,6 @@
-h1 Listing members
+.page-header
+  h1
+    = t(:listing, item: t(:member))
 
 = form_for @organization, url: organization_members_path(@organization) do |f|
   = f.fields_for :members do |ff|
@@ -10,14 +12,13 @@ h1 Listing members
         / link_to 'Show', user_path(member.user)
 
       .form-group
-        = ff.label :role
         = ff.select :role, ff.object.class.role.options
 
       .form-group
-        = link_to 'Destroy', organization_member_path(@organization, member), data: {:confirm => 'Are you sure?'}, :method => :delete
+        = link_to t(:destroy), organization_member_path(@organization, member), data: {:confirm => 'Are you sure?'}, :method => :delete
 
   = f.submit
 
 br
 
-= link_to 'New Member', new_organization_member_path(@organization)
+= link_to t(:new_member), new_organization_member_path(@organization)

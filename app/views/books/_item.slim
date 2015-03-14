@@ -1,23 +1,26 @@
 .col-sm-3
-  = link_to book do
+  = link_to (book.persisted? ? book : '#') do
     = image_tag book.medium_image_url, class: 'thumbnail center-block'
+
   .caption
     h4
       = book.title
       small<
         = book.binding
+
     p
       = book.authors.join(',')
+
     p
       - if book.new_record?
         = form_for book do |f|
           = f.hidden_field :asin, name: :asin, value: book.asin
           .form-group.text-center
-            - text = namespace_owner? ? 'Add to bookshelf' : 'Add to wishlist'
+            - text = namespace_owner? ? t(:add_to_bookshelf) : t(:add_to_wishlist)
             = f.submit text, class: 'btn btn-primary'
       - else
         .text-center
           span>
-            = link_to 'Show', book, class: 'btn btn-primary'
+            = link_to t(:show), book, class: 'btn btn-primary'
           span>
-            = link_to 'Edit', edit_book_path(book), class: 'btn btn-default'
+            = link_to t(:edit), edit_book_path(book), class: 'btn btn-default'

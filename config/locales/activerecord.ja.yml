@@ -45,7 +45,7 @@ ja:
         ownerable: '所有者'
         ownerable_id: '所有者ID'
         ownerable_type: '所有者タイプ'
-        path: 'パス'
+        path: 'ID'
         created_at: '作成日時'
         updated_at: '更新日時'
 
@@ -63,6 +63,7 @@ ja:
         password: 'パスワード'
         encrypted_password: 'パスワード'
         password_confirmation: 'パスワード確認'
+        current_password: '現在のパスワード'
         reset_password_token: 'パスワードリセットトークン'
         reset_password_sent_at: 'パスワードリセット送信日時'
         remember_me: 'ログイン状態を記憶'

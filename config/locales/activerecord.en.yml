@@ -45,7 +45,7 @@ en:
         ownerable: 'Owner'
         ownerable_id: 'Owner ID'
         ownerable_type: 'Owner type'
-        path: 'Username'
+        path: 'ID'
         created_at: 'Created at'
         updated_at: 'Updated at'
 
@@ -63,6 +63,7 @@ en:
         password: 'Password'
         encrypted_password: 'Password'
         password_confirmation: 'Password confirmation'
+        current_password: 'Current password'
         reset_password_token: 'Reset password token'
         reset_password_sent_at: 'Reset password sent at'
         remember_me: 'Remember me'

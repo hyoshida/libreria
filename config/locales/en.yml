@@ -1,103 +1,47 @@
 en:
-  activerecord:
-    attributes:
-      amazon_item:
-        asin: 'ASIN'
-        item: 'Item'
-        created_at: 'Created at'
-        updated_at: 'Updated at'
-
-      book:
-        amazon_item: 'Amazon item'
-        amazon_item_id: 'Amazon item ID'
-        namespace: 'Namespace'
-        namespace_id: 'Namespace ID'
-        state: 'State'
-        location_name: 'Location name'
-        arrived_at: 'Arrived at'
-        created_at: 'Created at'
-        updated_at: 'Updated at'
-
-      loan:
-        book: 'Book'
-        book_id: 'Book ID'
-        user: 'User'
-        user_id: 'User ID'
-        returned_at: 'Returned at'
-        created_at: 'Created at'
-        updated_at: 'Updated at'
-
-      member:
-        organization: 'Organization'
-        organization_id: 'Organization ID'
-        user: 'User'
-        user_id: 'User ID'
-        activated: 'Activated'
-        request_token: 'Request token'
-        request_sent_at: 'Request sent at'
-        request_accepted_at: 'Request accepted at'
-        request_acceptor: 'Request acceptor'
-        request_acceptor_id: 'Request acceptor ID'
-        created_at: 'Created at'
-        updated_at: 'Updated at'
-
-      namespace:
-        ownerable: 'Owner'
-        ownerable_id: 'Owner ID'
-        ownerable_type: 'Owner type'
-        path: 'Username'
-        created_at: 'Created at'
-        updated_at: 'Updated at'
-
-      organization:
-        name: 'Name'
-        email: 'Email'
-        published: 'Published'
-        created_at: 'Created at'
-        updated_at: 'Updated at'
-
-      user:
-        name: 'Nickname'
-        role: 'Role'
-        email: 'Email'
-        password: 'Password'
-        encrypted_password: 'Password'
-        password_confirmation: 'Password confirmation'
-        reset_password_token: 'Reset password token'
-        reset_password_sent_at: 'Reset password sent at'
-        remember_me: 'Remember me'
-        remember_created_at: 'Remember created at'
-        sign_in_count: 'Login count'
-        current_sign_in_at: 'Current login at'
-        last_sign_in_at: 'Last login at'
-        current_sign_in_ip: 'Current login ip'
-        last_sign_in_ip: 'Last login ip'
-        created_at: 'Created at'
-        updated_at: 'Updated at'
-
-      wish:
-        book: 'Book'
-        book_id: 'Book ID'
-        user: 'User'
-        user_id: 'User ID'
-        created_at: 'Created at'
-        updated_at: 'Updated at'
-
-    state_machines:
-      book:
-        state:
-          states:
-            wished: 'Wished'
-            ready: 'Ready'
-            onloan: 'On loan'
-          events:
-            arrived: 'Arrived'
-            loaned: 'Loaned'
-            returned: 'Returned'
-
-    errors:
-      models:
-        book:
-          attributes:
-            state:
-              invalid_transition: 'cannot %{event}'
+  add_to_wishlist: 'Add to wishlist'
+  add_to_bookshelf: 'Add to bookshelf'
+  are_you_sure: 'Are you sure?'
+  arrived_at: 'Arrived at'
+  asin: 'ASIN'
+  back: 'Back'
+  bookshelf: 'Bookshelf'
+  cancel_my_account: 'Cancel my account'
+  change_your_password: 'Change your password'
+  confirm_new_password: 'Confirm new password'
+  currently_waiting_confirmation_for: 'Currently waiting confirmation for:'
+  destroy: 'Destroy'
+  edit: 'Edit'
+  edit_member: 'Edit member'
+  edit_profile: 'Edit profile'
+  editing: 'Editing "%{item}"'
+  forgot_your_password: 'Forgot your password?'
+  guest: 'Guest'
+  leave_blank_if_you_dont_want_to_change_it: "(leave blank if you don't want to change it)"
+  listing: 'Listing "%{item}"'
+  loan: 'Loan'
+  new_book: 'New book'
+  new_member: 'New member'
+  new_organization: 'New organization'
+  new_password: 'New password'
+  main_menu: 'Main menu'
+  member: 'Member'
+  minimum_number_of_characters: '(%{minimum} characters minimum)'
+  more_options: 'More optioons'
+  organization: 'Organization'
+  profile: 'Profile'
+  recently_loans: 'Recently loans (%{maximum} of %{count} in total)'
+  return: 'Return'
+  returned_at: 'Returned at'
+  request: 'Request'
+  request_membership: 'Request membership'
+  search: 'Search'
+  send_me_reset_password_instructions: 'Send me reset password instructions'
+  show: 'Show'
+  sign_in: 'Login'
+  sign_out: 'Logout'
+  sign_up: 'Sign up'
+  user: 'User'
+  we_need_your_current_password_to_confirm_your_changes: '(we need your current password to confirm your changes)'
+  wish: 'Wish'
+  whose_bookshelf: "%{user}'s bookshelf"
