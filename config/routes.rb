@@ -8,9 +8,10 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     registrations: 'users/registrations',
     sessions: 'users/sessions',
-    unlocks: 'users/unlocks'
+    unlocks: 'users/unlocks',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
-  resources :users, param: :path, only: [:index, :show]
+  resources :users, param: :path, constraints: { path: Namespace.path_regexp }, only: [:index, :show]
 
   resources :organizations, param: :path do
     resources :members, only: [:index, :new, :create, :destroy] do
