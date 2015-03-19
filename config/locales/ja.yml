@@ -48,6 +48,7 @@ ja:
   send_me_reset_password_instructions: 'パスワードリセットの案内を送信する'
   show: '詳細'
   sign_in: 'ログイン'
+  sign_in_with_provider: '%{provider}でログイン'
   sign_out: 'ログアウト'
   sign_up: '新規登録'
   successfully_created: '%{resource}を作成しました。'
