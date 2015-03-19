@@ -52,7 +52,10 @@ gem 'select2-rails', '~> 3.5.9'
 
 gem 'amazon-ecs', '~> 2.3.0'
 
+# User Authcation
 gem 'devise', '~> 3.4.1'
+gem 'omniauth-google-oauth2', '~> 0.2.6'
+
 gem 'activeadmin', github: 'activeadmin'
 
 gem 'enumerize', '~> 0.10.1'

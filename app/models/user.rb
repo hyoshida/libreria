@@ -17,6 +17,7 @@
 #  last_sign_in_ip        :inet
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  google_uid             :string
 #
 # Indexes
 #
@@ -46,7 +47,11 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:google]
+
+  # Please insert after `devise` method to override `new_with_session` method.
+  include User::Omniauthble
 
   enumerize :role, in: %i(
     none
@@ -68,6 +73,6 @@ class User < ActiveRecord::Base
   private
 
   def copy_name_from_namespace
-    self.name = username
+    self.name ||= username
   end
 end
