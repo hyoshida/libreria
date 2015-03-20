@@ -55,6 +55,7 @@ gem 'amazon-ecs', '~> 2.3.0'
 # User Authcation
 gem 'devise', '~> 3.4.1'
 gem 'omniauth-google-oauth2', '~> 0.2.6'
+gem 'omniauth-facebook', '~> 2.0.1'
 
 gem 'activeadmin', github: 'activeadmin'
 
