@@ -18,6 +18,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  google_uid             :string
+#  facebook_uid           :string
 #
 # Indexes
 #
