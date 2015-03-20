@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   end
 
   def username
-    namespace.path
+    namespace.path if namespace
   end
 
   private
