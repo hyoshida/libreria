@@ -13,6 +13,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def permitted_attributes
-    [ :name, :google_uid, namespace_attributes: [:id, :path] ]
+    [ :name, :google_uid, :facebook_uid, namespace_attributes: [:id, :path] ]
   end
 end

@@ -30,18 +30,22 @@ class User < ActiveRecord::Base
         session['devise.omniauth.auth']
       end
 
-      def username_from_email(email)
-        return if email.blank?
-        email.split('@').first
-      end
-
       def attributes_from_auth(auth)
         {
           :"#{auth['provider']}_uid" => auth['uid'],
           name: auth['info']['name'],
           email: auth['info']['email'],
-          namespace_attributes: { path: username_from_email(auth['info']['email']) }
+          namespace_attributes: { path: username_from_auth(auth) }
         }
+      end
+
+      def username_from_auth(auth)
+        auth['info']['nickname'] || username_from_email(auth['info']['email'])
+      end
+
+      def username_from_email(email)
+        return if email.blank?
+        email.split('@').first
       end
     end
   end

@@ -263,4 +263,9 @@ Devise.setup do |config|
     ENV['GOOGLE_CLIENT_SECURET'],
     scope: 'email, profile',
     name: :google
+
+  config.omniauth :facebook,
+    ENV['FACEBOOK_APP_ID'],
+    ENV['FACEBOOK_APP_SECRET'],
+    scope: 'email, public_profile'
 end
