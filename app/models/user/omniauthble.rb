@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
         user = find_by_auth(auth)
         user ||= find_by(email: auth['info']['email'])
         user ||= new
-        user.attributes = attributes_from_auth(auth)
+        user.attributes = attributes_from_auth(auth, default: user)
         user.password = Devise.friendly_token[0, 20] if user.new_record?
         user
       end
@@ -30,18 +30,22 @@ class User < ActiveRecord::Base
         session['devise.omniauth.auth']
       end
 
+      def attributes_from_auth(auth, default: new)
+        {
+          :"#{auth['provider']}_uid" => auth['uid'],
+          name: default.name || auth['info']['name'],
+          email: default.email || auth['info']['email'],
+          namespace_attributes: { path: default.username || username_from_auth(auth) }
+        }
+      end
+
+      def username_from_auth(auth)
+        auth['info']['nickname'] || username_from_email(auth['info']['email'])
+      end
+
       def username_from_email(email)
         return if email.blank?
         email.split('@').first
-      end
-
-      def attributes_from_auth(auth)
-        {
-          :"#{auth['provider']}_uid" => auth['uid'],
-          name: auth['info']['name'],
-          email: auth['info']['email'],
-          namespace_attributes: { path: username_from_email(auth['info']['email']) }
-        }
       end
     end
   end
