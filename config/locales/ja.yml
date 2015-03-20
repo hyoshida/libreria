@@ -57,5 +57,5 @@ ja:
   token_is_broken: '不正なトークンです。'
   user: 'ユーザー'
   we_need_your_current_password_to_confirm_your_changes: '(内容の編集には現在のパスワードが必要です)'
-  wish: '購入リクエスト'
+  wish: 'これ欲しい！'
   whose_bookshelf: '%{user} の本棚'

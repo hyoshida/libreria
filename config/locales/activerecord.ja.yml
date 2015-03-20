@@ -8,7 +8,7 @@ ja:
       namespace: '名前空間'
       organization: 'グループ'
       user: 'ユーザー'
-      wish: '購入リクエスト'
+      wish: 'これ欲しい！'
 
     attributes:
       amazon_item:
@@ -98,7 +98,7 @@ ja:
       book:
         state:
           states:
-            wished: '購入リクエスト中'
+            wished: 'これ欲しい！'
             ready: '購入済み'
             onloan: '貸出中'
           events:
