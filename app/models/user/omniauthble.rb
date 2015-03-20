@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
       # This method called by new oauth user
       def new_with_session(params, session)
         super.tap do |user|
-          auth = find_provider_and_auth_from_session(session)
+          auth = find_auth_from_session(session)
           user.attributes = attributes_from_auth(auth) if auth
         end
       end
@@ -26,12 +26,8 @@ class User < ActiveRecord::Base
         find_by("#{auth['provider']}_uid" => auth['uid']) if auth
       end
 
-      def find_provider_and_auth_from_session(session)
-        omniauth_providers.each do |provider|
-          auth = session["devise.#{provider}_data"]
-          return auth if auth
-        end
-        nil
+      def find_auth_from_session(session)
+        session['devise.omniauth.auth']
       end
 
       def username_from_email(email)

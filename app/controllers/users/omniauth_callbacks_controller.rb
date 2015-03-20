@@ -8,7 +8,7 @@ module Users
         set_flash_message(:notice, :success, kind: 'Google') if is_navigational_format?
       else
         # To use `new_with_session` method.
-        session['devise.google_data'] = request.env['omniauth.auth']
+        session['devise.omniauth.auth'] = request.env['omniauth.auth']
         redirect_to new_user_registration_url
       end
     end
