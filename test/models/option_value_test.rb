@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class OptionValueTest < ActiveSupport::TestCase
+  subject { build(:option_value) }
+
   should belong_to(:option_type)
 
   should validate_uniqueness_of(:name).scoped_to(:option_type_id)
