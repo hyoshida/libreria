@@ -1,11 +1,7 @@
 require 'test_helper'
 
 class BookTest < ActiveSupport::TestCase
-  setup do
-    @namespace = build_stubbed(:namespace, :with_user)
-  end
-
-  subject { build(:book, namespace: @namespace) }
+  subject { build(:book, :with_namespace) }
 
   should belong_to(:namespace)
   should belong_to(:amazon_item)
