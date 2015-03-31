@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class BooksOptionValueTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should belong_to(:book)
+  should belong_to(:option_value)
 end

@@ -22,6 +22,8 @@ class Book < ActiveRecord::Base
   # TODO: Should change the dependent of associations to soft-delete
   has_many :wishes, dependent: :destroy
   has_many :loans, dependent: :destroy
+  has_many :books_option_value, dependent: :destroy
+  has_many :option_values, through: :books_option_value
 
   validates :amazon_item_id, uniqueness: { scope: :namespace_id }
   validates :namespace, presence: true
