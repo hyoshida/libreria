@@ -128,7 +128,8 @@ class BooksController < ApplicationController
     params.fetch(:book, {}).permit(
       :state_event,
       :state,
-      :location_name
+      :location_name,
+      option_values_attributes: [:id, :option_type_id, :name]
     )
   end
 

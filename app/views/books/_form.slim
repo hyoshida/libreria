@@ -4,6 +4,15 @@
   .form-gourp
     = f.collection_select :state_event, @book.state_transitions, :event, :human_to_name, include_blank: @book.human_state_name
 
+  - @namespace.option_types.each do |option_type|
+    - option_value = option_type.option_values.merge(@book.option_values).first
+    - option_value ||= option_type.option_values.build
+    = f.fields_for :option_values, option_value do |ff|
+      = ff.hidden_field :option_type_id, value: option_type.id
+      .form-gourp
+        = ff.label :name, option_type.name
+        = ff.text_field :name
+
   hr
 
   .panel.panel-default

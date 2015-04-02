@@ -25,6 +25,8 @@ class Book < ActiveRecord::Base
   has_many :books_option_value, dependent: :destroy
   has_many :option_values, through: :books_option_value
 
+  accepts_nested_attributes_for :option_values
+
   validates :amazon_item_id, uniqueness: { scope: :namespace_id }
   validates :namespace, presence: true
   validates :amazon_item, presence: true
