@@ -22,6 +22,8 @@ class Namespace < ActiveRecord::Base
   belongs_to :ownerable, polymorphic: true
   has_many :option_types
 
+  accepts_nested_attributes_for :option_types, allow_destroy: true
+
   validates :path, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :path, format: { with: /\A#{path_regexp}\z/ }
 

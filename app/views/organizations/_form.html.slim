@@ -20,4 +20,10 @@
       = f.label :email
       = f.text_field :email
 
+  = setup_dynamic_fields
+  = f.fields_for :namespace do |ff|
+    = ff.fields_for :option_types do |builder|
+      = render 'option_type_fields', f: builder
+    = button_to_add_fields '追加', ff, :option_types
+
   .actions = f.submit
