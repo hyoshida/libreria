@@ -67,6 +67,8 @@ GEM
     autoprefixer-rails (5.1.7)
       execjs
       json
+    awesome_nested_fields (0.6.4)
+      rails (>= 3.0.0)
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -304,6 +306,7 @@ DEPENDENCIES
   activeadmin!
   amazon-ecs (~> 2.3.0)
   annotate (~> 2.6.7)
+  awesome_nested_fields
   bootstrap-sass
   byebug
   coffee-rails (~> 4.1.0)

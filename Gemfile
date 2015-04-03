@@ -61,6 +61,9 @@ gem 'state_machines-activerecord', '~> 0.2.0'
 # DynamicForm holds a few helpers method: e.g. `error_messages_for`
 gem 'dynamic_form', '~> 1.1.4'
 
+# Use dynamic nested fields
+gem 'awesome_nested_fields'
+
 # Support japanese
 gem 'rails-i18n'
 gem 'devise-i18n'
