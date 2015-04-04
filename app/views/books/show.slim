@@ -44,6 +44,14 @@ dl
     dd
       = l @book.arrived_at.to_date, format: :long
 
+- if @book.option_values.any?
+  dl
+    - @book.option_values.each do |option_value|
+      dt
+        = option_value.option_type.name
+      dd
+        = option_value.name
+
 hr
 
 - if @book.loans.any?

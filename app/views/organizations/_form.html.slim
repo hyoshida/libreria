@@ -20,4 +20,16 @@
       = f.label :email
       = f.text_field :email
 
+  = f.fields_for :namespace do |ff|
+    .nested_fileds
+      = ff.nested_fields_for :option_types do |f|
+        .nested_filed
+          = f.hidden_field :id
+          = f.hidden_field :_destroy
+          .form-group
+            = f.label :name
+            = f.text_field :name
+            = link_to '削除', '#', class: 'remove_nested_filed'
+    = link_to '追加', '#', class: 'add_nested_filed'
+
   .actions = f.submit

@@ -4,6 +4,7 @@ class NamespaceTest < ActiveSupport::TestCase
   subject { build(:namespace, :with_organization) }
 
   should belong_to(:ownerable)
+  should have_many(:option_types)
 
   should validate_uniqueness_of(:path)
   should validate_presence_of(:path)
